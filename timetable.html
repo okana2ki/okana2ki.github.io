@@ -1,0 +1,549 @@
+<html>
+<head><meta charset="UTF-8"><style>
+table { border-collapse: collapse; }
+th, td { border: 1px solid #000; padding: 5px; }
+</style></head>
+<body>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h2 style="margin: 0;">経営学部1年次生 履修登録検討用フォーム（β版）</h2>
+  <div style="font-size: 14px;">
+    凡例：
+    <span style="color:red;">総合教育科目</span>、
+    <span style="color:black;">専門教育科目</span>、
+    <span style="color:#00FFFF;">自由科目</span>、
+    <span style="color:black;">(単位なし・履修登録不要科目)</span>
+  </div>
+</div>
+
+
+<div style="margin-bottom: 20px;">
+  <!-- 使い方 -->
+  <div style="margin-bottom: 10px; font-size: 14px;">
+    使い方：①コースを選択（下記のチェックボックス）；②教職課程を履修する場合はチェック（下記のチェックボックス）；③シラバス（科目名がシラバスへのリンクになっている）を参照しつつ、履修科目をチェック（科目先頭のチェックボックス）
+  </div>
+    <div style="margin-bottom: 10px; font-size: 14px;">
+    動作説明：コースや教職の選択状態に応じて必修／選択必修／履修不可科目を動的に切り替えます。チェックボックスはトグル動作（選択／非選択が交互に切り替わる）です。以下の制約が自動判断されます：同じコマの科目は1つしか選択できない；Iの科目を選択しないとIIの科目は選択できない；同じ科目名の科目は1つしか選択できない。
+  </div>
+  <!-- 1行目：コース -->
+  <div style="margin-bottom: 10px; font-size: 14px;">
+    コース：
+    <label style="margin-right: 15px;">
+      <input type="checkbox" name="course" value="総合経営" class="course-checkbox"> 総合経営
+    </label>
+    <label style="margin-right: 15px;">
+      <input type="checkbox" name="course" value="実践経済" class="course-checkbox"> 実践経済
+    </label>
+    <label style="margin-right: 15px;">
+      <input type="checkbox" name="course" value="データサイエンス" class="course-checkbox"> データサイエンス
+    </label>
+    <label style="margin-right: 15px;">
+      <input type="checkbox" name="course" value="スポーツマネジメント" class="course-checkbox"> スポーツマネジメント
+    </label>
+  </div>
+  <!-- 2行目：教職課程 -->
+  <div style="font-size: 14px;">
+    教職課程：
+    <label>
+      <input type="checkbox" name="kyoushoku" value="履修"> 履修
+    </label>
+  </div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>時限</th>
+<th>学期</th>
+<th>月</th>
+<th>火</th>
+<th>水</th>
+<th>木</th>
+<th>金</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="3">1限</td>
+<td>前期</td>
+<td><div class="subject-entry" data-subject="数量的処理A(基礎数学)"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="月" data-subject="数量的処理A(基礎数学)" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-008.pdf" style="color:red; text-decoration:underline;">数量的処理A(基礎数学)</a> | コード：01 | 教員：齊藤芳一 | 教室：5102</div><div class="subject-entry" data-subject="会計学I"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="月" data-subject="会計学I" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-046.pdf" style="color:black; text-decoration:underline;">会計学I</a> | コード：02 | 教員：出山　実 | 教室：5101</div></td>
+<td><div class="subject-entry" data-subject="情報社会論"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="火" data-subject="情報社会論" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-071.pdf" style="color:black; text-decoration:underline;">情報社会論</a> | コード：04 | 教員：本村信一 | 教室：5103</div></td>
+<td><div class="subject-entry" data-subject="簿記論I"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="水" data-subject="簿記論I" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-004.pdf" style="color:black; text-decoration:underline;">簿記論I</a> | コード：02 | 教員：森田英二 | 教室：5102</div><div class="subject-entry" data-subject="上級簿記A"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="水" data-subject="上級簿記A" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-006.pdf" style="color:black; text-decoration:underline;">上級簿記A</a> | コード：03 | 教員：出山　実 | 教室：5212</div><div class="subject-entry" data-subject="統計学I"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="水" data-subject="統計学I" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-012.pdf" style="color:black; text-decoration:underline;">統計学I</a> | コード：04 | 教員：山梨顕友 | 教室：5211</div></td>
+<td></td>
+<td><div class="subject-entry" data-subject="英語基礎A(初級英文法)"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="前期" data-day="金" data-subject="英語基礎A(初級英文法)" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-005.pdf" style="color:red; text-decoration:underline;">英語基礎A(初級英文法)</a> | コード：02 | 教員：徳地慎二 | 教室：5101</div></td>
+</tr>
+<tr>
+<td>通年</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>後期</td>
+<td><div class="subject-entry" data-subject="数量的処理B(判断推理)"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="月" data-subject="数量的処理B(判断推理)" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-009.pdf" style="color:red; text-decoration:underline;">数量的処理B(判断推理)</a> | コード：13 | 教員：齊藤芳一 | 教室：5102</div><div class="subject-entry" data-subject="会計学II"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="月" data-subject="会計学II" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-047.pdf" style="color:black; text-decoration:underline;">会計学II</a> | コード：14 | 教員：出山　実 | 教室：5101</div></td>
+<td><div class="subject-entry" data-subject="情報処理応用"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="火" data-subject="情報処理応用" data-class="営2"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-012.pdf" style="color:red; text-decoration:underline;">情報処理応用</a> | クラス：営2 | コード：22 | 教員：森部陽一郎 | 教室：5206</div><div class="subject-entry" data-subject="情報処理応用"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="火" data-subject="情報処理応用" data-class="営3"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-012.pdf" style="color:red; text-decoration:underline;">情報処理応用</a> | クラス：営3 | コード：23 | 教員：本村信一 | 教室：5203</div></td>
+<td><div class="subject-entry" data-subject="簿記論II"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="水" data-subject="簿記論II" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-005.pdf" style="color:black; text-decoration:underline;">簿記論II</a> | コード：14 | 教員：森田英二 | 教室：5102</div><div class="subject-entry" data-subject="上級簿記B"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="水" data-subject="上級簿記B" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-007.pdf" style="color:black; text-decoration:underline;">上級簿記B</a> | コード：15 | 教員：出山　実 | 教室：5212</div><div class="subject-entry" data-subject="統計学II"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="水" data-subject="統計学II" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-013.pdf" style="color:black; text-decoration:underline;">統計学II</a> | コード：20 | 教員：山梨顕友 | 教室：5211</div></td>
+<td></td>
+<td><div class="subject-entry" data-subject="英語基礎B(長文読解)"><input type="checkbox" class="subject-checkbox" data-period="1限" data-semester="後期" data-day="金" data-subject="英語基礎B(長文読解)" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-006.pdf" style="color:red; text-decoration:underline;">英語基礎B(長文読解)</a> | コード：15 | 教員：徳地慎二 | 教室：5101</div></td>
+</tr>
+<tr>
+<td rowspan="3">2限</td>
+<td>前期</td>
+<td><div class="subject-entry" data-subject="コンピュータ概論A"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="月" data-subject="コンピュータ概論A" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-013.pdf" style="color:red; text-decoration:underline;">コンピュータ概論A</a> | コード：01 | 教員：森田英二 | 教室：5202</div></td>
+<td><div class="subject-entry" data-subject="経営学総論A"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="火" data-subject="経営学総論A" data-class=""> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-001.pdf" style="color:black; text-decoration:underline;">経営学総論A</a> | コード：02 | 教員：柚原知明 | 教室：5202</div></td>
+<td><div class="subject-entry" data-subject="フランス語I"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="水" data-subject="フランス語I" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-027.pdf" style="color:red; text-decoration:underline;">フランス語I</a> | コード：01 | 教員：白石敬晶 | 教室：5206</div><div class="subject-entry" data-subject="人間と歴史"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="水" data-subject="人間と歴史" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-031.pdf" style="color:red; text-decoration:underline;">人間と歴史</a> | コード：02 | 教員：柴田博子 | 教室：5101</div><div class="subject-entry" data-subject="人間と哲学"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="水" data-subject="人間と哲学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-029.pdf" style="color:red; text-decoration:underline;">人間と哲学</a> | コード：03 | 教員：中本幹生 | 教室：5202</div><div class="subject-entry" data-subject="スポーツ社会学"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="水" data-subject="スポーツ社会学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-052.pdf" style="color:red; text-decoration:underline;">スポーツ社会学</a> | コード：04 | 教員：古城梨早 | 教室：5212</div><div class="subject-entry" data-subject="ミクロ経済学I"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="水" data-subject="ミクロ経済学I" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-008.pdf" style="color:black; text-decoration:underline;">ミクロ経済学I</a> | コード：05 | 教員：宮下稔規 | 教室：5104</div></td>
+<td><div class="subject-entry" data-subject="情報処理基礎"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="木" data-subject="情報処理基礎" data-class="営"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-011.pdf" style="color:red; text-decoration:underline;">情報処理基礎</a> | クラス：営 | コード：01 | 教員：鬼束祐子 | 教室：3101</div></td>
+<td><div class="subject-entry" data-subject="人間と教育"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="金" data-subject="人間と教育" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-034.pdf" style="color:red; text-decoration:underline;">人間と教育</a> | コード：02 | 教員：山本　優 | 教室：5202</div><div class="subject-entry" data-subject="ドイツ語I"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="金" data-subject="ドイツ語I" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-025.pdf" style="color:red; text-decoration:underline;">ドイツ語I</a> | コード：03 | 教員：武次玄三 | 教室：3103</div><div class="subject-entry" data-subject="マクロ経済学I"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="前期" data-day="金" data-subject="マクロ経済学I" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-010.pdf" style="color:black; text-decoration:underline;">マクロ経済学I</a> | コード：05 | 教員：山梨顕友 | 教室：5211</div></td>
+</tr>
+<tr>
+<td>通年</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>後期</td>
+<td><div class="subject-entry" data-subject="コンピュータ概論B"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="月" data-subject="コンピュータ概論B" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-014.pdf" style="color:red; text-decoration:underline;">コンピュータ概論B</a> | コード：21 | 教員：森田英二 | 教室：5202</div></td>
+<td><div class="subject-entry" data-subject="経営学総論B"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="火" data-subject="経営学総論B" data-class=""> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-002.pdf" style="color:black; text-decoration:underline;">経営学総論B</a> | コード：23 | 教員：柚原知明 | 教室：5202</div></td>
+<td><div class="subject-entry" data-subject="情報処理応用"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="水" data-subject="情報処理応用" data-class="営4"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-012.pdf" style="color:red; text-decoration:underline;">情報処理応用</a> | クラス：営4 | コード：21 | 教員：若松朋也 | 教室：3101</div><div class="subject-entry" data-subject="フランス語II"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="水" data-subject="フランス語II" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-028.pdf" style="color:red; text-decoration:underline;">フランス語II</a> | コード：22 | 教員：白石敬晶 | 教室：5206</div><div class="subject-entry" data-subject="人間と倫理"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="水" data-subject="人間と倫理" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-030.pdf" style="color:red; text-decoration:underline;">人間と倫理</a> | コード：23 | 教員：中本幹生 | 教室：5202</div><div class="subject-entry" data-subject="人間と文学"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="水" data-subject="人間と文学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-032.pdf" style="color:red; text-decoration:underline;">人間と文学</a> | コード：24 | 教員：堀下　翔 | 教室：5101</div><div class="subject-entry" data-subject="障がい者スポーツ論"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="水" data-subject="障がい者スポーツ論" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-053.pdf" style="color:red; text-decoration:underline;">障がい者スポーツ論</a> | コード：25 | 教員：古城梨早 | 教室：5212</div><div class="subject-entry" data-subject="ミクロ経済学II"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="水" data-subject="ミクロ経済学II" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-009.pdf" style="color:black; text-decoration:underline;">ミクロ経済学II</a> | コード：30 | 教員：宮下稔規 | 教室：5104</div></td>
+<td><div class="subject-entry" data-subject="情報処理応用"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="木" data-subject="情報処理応用" data-class="営1"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-012.pdf" style="color:red; text-decoration:underline;">情報処理応用</a> | クラス：営1 | コード：52 | 教員：鬼束祐子 | 教室：3101</div></td>
+<td><div class="subject-entry" data-subject="人間と社会"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="金" data-subject="人間と社会" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-033.pdf" style="color:red; text-decoration:underline;">人間と社会</a> | コード：20 | 教員：吉田成哉 | 教室：5202</div><div class="subject-entry" data-subject="スポーツ心理学"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="金" data-subject="スポーツ心理学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-051.pdf" style="color:red; text-decoration:underline;">スポーツ心理学</a> | コード：21 | 教員：雜賀智子 | 教室：5104</div><div class="subject-entry" data-subject="ドイツ語II"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="金" data-subject="ドイツ語II" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-026.pdf" style="color:red; text-decoration:underline;">ドイツ語II</a> | コード：22 | 教員：武次玄三 | 教室：3103</div><div class="subject-entry" data-subject="マクロ経済学II"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="金" data-subject="マクロ経済学II" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-011.pdf" style="color:black; text-decoration:underline;">マクロ経済学II</a> | コード：23 | 教員：山梨顕友 | 教室：5211</div><div class="subject-entry" data-subject="教育行政学"><input type="checkbox" class="subject-checkbox" data-period="2限" data-semester="後期" data-day="金" data-subject="教育行政学" data-class="教職"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/4-025.pdf" style="color:#00FFFF; text-decoration:underline;">教育行政学</a> | クラス：教職 | コード：33 | 教員：山本　優 | 教室：5101</div></td>
+</tr>
+<tr>
+<td rowspan="3">3限</td>
+<td>前期</td>
+<td><div class="subject-entry" data-subject="人間と心理"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="月" data-subject="人間と心理" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-035.pdf" style="color:red; text-decoration:underline;">人間と心理</a> | コード：01 | 教員：雜賀智子 | 教室：5202</div><div class="subject-entry" data-subject="人間と環境"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="月" data-subject="人間と環境" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-036.pdf" style="color:red; text-decoration:underline;">人間と環境</a> | コード：02 | 教員：村岡嗣文 | 教室：5102</div><div class="subject-entry" data-subject="現代社会と法A"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="月" data-subject="現代社会と法A" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-040.pdf" style="color:red; text-decoration:underline;">現代社会と法A</a> | コード：03 | 教員：雨宮敬博 | 教室：5103</div><div class="subject-entry" data-subject="スポーツ指導論"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="月" data-subject="スポーツ指導論" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-048.pdf" style="color:red; text-decoration:underline;">スポーツ指導論</a> | コード：04 | 教員：三輪正和 | 教室：5213</div></td>
+<td><div class="subject-entry" data-subject="異文化理解と国際交流"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="火" data-subject="異文化理解と国際交流" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-039.pdf" style="color:red; text-decoration:underline;">異文化理解と国際交流</a> | コード：01 | 教員：安井　誠 | 教室：5103</div><div class="subject-entry" data-subject="現代社会と政治A"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="火" data-subject="現代社会と政治A" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-042.pdf" style="color:red; text-decoration:underline;">現代社会と政治A</a> | コード：02 | 教員：千知岩正継 | 教室：5101</div><div class="subject-entry" data-subject="スポーツ総合"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="火" data-subject="スポーツ総合" data-class="営"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-046.pdf" style="color:red; text-decoration:underline;">スポーツ総合</a> | クラス：営 | コード：03 | 教員：古城･若松 | 教室：体育館</div><div class="subject-entry" data-subject="英語コミュニケーションA"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="火" data-subject="英語コミュニケーションA" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-018.pdf" style="color:red; text-decoration:underline;">英語コミュニケーションA</a> | コード：05 | 教員：トンプソン | 教室：5211</div></td>
+<td><div class="subject-entry" data-subject="日本語理解A(国語総合)"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="水" data-subject="日本語理解A(国語総合)" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-001.pdf" style="color:red; text-decoration:underline;">日本語理解A(国語総合)</a> | コード：01 | 教員：堀下　翔 | 教室：5202</div><div class="subject-entry" data-subject="プログラミング基礎I"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="水" data-subject="プログラミング基礎I" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-016.pdf" style="color:black; text-decoration:underline;">プログラミング基礎I</a> | コード：02 | 教員：川島秀樹 | 教室：3101</div></td>
+<td></td>
+<td><div class="subject-entry" data-subject="実践英会話I"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="金" data-subject="実践英会話I" data-class="1年次対象"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-016.pdf" style="color:red; text-decoration:underline;">実践英会話I</a> | クラス：1年次対象 | コード：01 | 教員：ｽﾃｨｰﾌﾞﾝﾀｲｶﾄ | 教室：5211</div><div class="subject-entry" data-subject="語源で理解する英単語"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="前期" data-day="金" data-subject="語源で理解する英単語" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-015.pdf" style="color:red; text-decoration:underline;">語源で理解する英単語</a> | コード：02 | 教員：安井　誠 | 教室：5202</div></td>
+</tr>
+<tr>
+<td>通年</td>
+<td></td>
+<td></td>
+<td></td>
+<td><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="a 武次玄三"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：a 武次玄三 | コード：21 | 教室：5401</div><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="b 安井　誠"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：b 安井　誠 | コード：22 | 教室：5402</div><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="c 雜賀智子"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：c 雜賀智子 | コード：23 | 教室：5403</div><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="d 堀下　翔"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：d 堀下　翔 | コード：24 | 教室：5404</div><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="e 岩切道雄"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：e 岩切道雄 | コード：25 | 教室：5405</div><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="f 若松朋也"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：f 若松朋也 | コード：30 | 教室：3104</div><div class="subject-entry" data-subject="進路研究演習1"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="通年" data-day="木" data-subject="進路研究演習1" data-class="g 藏屋滉平"> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-125.pdf" style="color:black; text-decoration:underline;">進路研究演習1</a> | クラス：g 藏屋滉平 | コード：31 | 教室：3203</div></td>
+<td></td>
+</tr>
+<tr>
+<td>後期</td>
+<td><div class="subject-entry" data-subject="人間と科学"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="月" data-subject="人間と科学" data-class=""> | 年次：１ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-037.pdf" style="color:red; text-decoration:underline;">人間と科学</a> | コード：40 | 教員：村岡嗣文 | 教室：5102</div><div class="subject-entry" data-subject="現代社会と法B"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="月" data-subject="現代社会と法B" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-041.pdf" style="color:red; text-decoration:underline;">現代社会と法B</a> | コード：41 | 教員：雨宮敬博 | 教室：5103</div><div class="subject-entry" data-subject="地域と文化"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="月" data-subject="地域と文化" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-038.pdf" style="color:red; text-decoration:underline;">地域と文化</a> | コード：42 | 教員：朝日克彦 | 教室：5202</div></td>
+<td><div class="subject-entry" data-subject="現代社会と政治B"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="火" data-subject="現代社会と政治B" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-043.pdf" style="color:red; text-decoration:underline;">現代社会と政治B</a> | コード：22 | 教員：千知岩正継 | 教室：5101</div><div class="subject-entry" data-subject="英語コミュニケーションB"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="火" data-subject="英語コミュニケーションB" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-019.pdf" style="color:red; text-decoration:underline;">英語コミュニケーションB</a> | コード：25 | 教員：トンプソン | 教室：5211</div></td>
+<td><div class="subject-entry" data-subject="日本語理解B(散文読解)"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="水" data-subject="日本語理解B(散文読解)" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-002.pdf" style="color:red; text-decoration:underline;">日本語理解B(散文読解)</a> | コード：34 | 教員：堀下　翔 | 教室：5202</div><div class="subject-entry" data-subject="プログラミング基礎II"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="水" data-subject="プログラミング基礎II" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-017.pdf" style="color:black; text-decoration:underline;">プログラミング基礎II</a> | コード：35 | 教員：川島秀樹 | 教室：3101</div></td>
+<td></td>
+<td><div class="subject-entry" data-subject="実践英会話II"><input type="checkbox" class="subject-checkbox" data-period="3限" data-semester="後期" data-day="金" data-subject="実践英会話II" data-class="1年次対象"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-017.pdf" style="color:red; text-decoration:underline;">実践英会話II</a> | クラス：1年次対象 | コード：14 | 教員：ｽﾃｨｰﾌﾞﾝﾀｲｶﾄ | 教室：5211</div></td>
+</tr>
+<tr>
+<td rowspan="3">4限</td>
+<td>前期</td>
+<td><div class="subject-entry" data-subject="実践英会話I"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="月" data-subject="実践英会話I" data-class="1年次対象"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-016.pdf" style="color:red; text-decoration:underline;">実践英会話I</a> | クラス：1年次対象 | コード：01 | 教員：ｽﾃｨｰﾌﾞﾝﾀｲｶﾄ | 教室：5211</div></td>
+<td><div class="subject-entry" data-subject="情報倫理"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="火" data-subject="情報倫理" data-class=""> | 年次：➊ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-003.pdf" style="color:black; text-decoration:underline;">情報倫理</a> | コード：01 | 教員：原田佳典 | 教室：5101</div></td>
+<td><div class="subject-entry" data-subject="現代社会と経済A"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="水" data-subject="現代社会と経済A" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-044.pdf" style="color:red; text-decoration:underline;">現代社会と経済A</a> | コード：01 | 教員：緒方　哲 | 教室：5202</div><div class="subject-entry" data-subject="トレーニング科学"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="水" data-subject="トレーニング科学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-047.pdf" style="color:red; text-decoration:underline;">トレーニング科学</a> | コード：02 | 教員：渡邊浩二 | 教室：5213</div><div class="subject-entry" data-subject="商学概論A"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="水" data-subject="商学概論A" data-class=""> | 年次：１ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-031.pdf" style="color:black; text-decoration:underline;">商学概論A</a> | コード：03 | 教員：岩切道雄 | 教室：5102</div><div class="subject-entry" data-subject="ITパスポートセミナーA"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="水" data-subject="ITパスポートセミナーA" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-121.pdf" style="color:black; text-decoration:underline;">ITパスポートセミナーA</a> | コード：04 | 教員：鬼束祐子 | 教室：5207</div></td>
+<td><div class="subject-entry" data-subject="中国語I"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="木" data-subject="中国語I" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-023.pdf" style="color:red; text-decoration:underline;">中国語I</a> | コード：01 | 教員：園田美伽 | 教室：5102</div><div class="subject-entry" data-subject="スポーツ栄養学"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="木" data-subject="スポーツ栄養学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-050.pdf" style="color:red; text-decoration:underline;">スポーツ栄養学</a> | コード：02 | 教員：松下律子 | 教室：5104</div><div class="subject-entry" data-subject="数学ステップアップ講座A"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="木" data-subject="数学ステップアップ講座A" data-class="1クラス"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-020.pdf" style="color:black; text-decoration:underline;">数学ステップアップ講座A</a> | クラス：1クラス | コード：03 | 教員：土肥・大迫 | 教室：情報数学塾室・3201</div><div class="subject-entry" data-subject="(みんなの生成AIワークショップA)"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="木" data-subject="(みんなの生成AIワークショップA)" data-class=""> | 科目：<a href="https://sites.google.com/view/genai4e/%E3%81%BF%E3%82%93%E3%81%AA%E3%81%AE%E7%94%9F%E6%88%90ai%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97" style="color:black; text-decoration:underline;">(みんなの生成AIワークショップA)</a></div></td>
+<td><div class="subject-entry" data-subject="基礎数学I"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="前期" data-day="金" data-subject="基礎数学I" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-014.pdf" style="color:black; text-decoration:underline;">基礎数学I</a> | コード：05 | 教員：山梨顕友 | 教室：5102</div></td>
+</tr>
+<tr>
+<td>通年</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>後期</td>
+<td><div class="subject-entry" data-subject="実践英会話II"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="月" data-subject="実践英会話II" data-class="1年次対象"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-017.pdf" style="color:red; text-decoration:underline;">実践英会話II</a> | クラス：1年次対象 | コード：35 | 教員：ｽﾃｨｰﾌﾞﾝﾀｲｶﾄ | 教室：5211</div><div class="subject-entry" data-subject="ボランティア"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="月" data-subject="ボランティア" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-119.pdf" style="color:black; text-decoration:underline;">ボランティア</a> | コード：40 | 教員：岩切道雄 | 教室：3201</div></td>
+<td><div class="subject-entry" data-subject="データサイエンス入門"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="火" data-subject="データサイエンス入門" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-083.pdf" style="color:black; text-decoration:underline;">データサイエンス入門</a> | コード：15 | 教員：岡　夏樹 | 教室：5101</div><div class="subject-entry" data-subject="TOEICセミナーLR"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="火" data-subject="TOEICセミナーLR" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/2-089.pdf" style="color:black; text-decoration:underline;">TOEICセミナーLR</a> | コード：32 | 教員：徳地慎二 | 教室：5208</div></td>
+<td><div class="subject-entry" data-subject="現代社会と経済B"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="水" data-subject="現代社会と経済B" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-045.pdf" style="color:red; text-decoration:underline;">現代社会と経済B</a> | コード：33 | 教員：緒方　哲 | 教室：5202</div><div class="subject-entry" data-subject="商学概論B"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="水" data-subject="商学概論B" data-class=""> | 年次：１ | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-032.pdf" style="color:black; text-decoration:underline;">商学概論B</a> | コード：34 | 教員：岩切道雄 | 教室：5102</div><div class="subject-entry" data-subject="ITパスポートセミナーB"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="水" data-subject="ITパスポートセミナーB" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-122.pdf" style="color:black; text-decoration:underline;">ITパスポートセミナーB</a> | コード：35 | 教員：鬼束祐子 | 教室：5207</div></td>
+<td><div class="subject-entry" data-subject="中国語II"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="木" data-subject="中国語II" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-024.pdf" style="color:red; text-decoration:underline;">中国語II</a> | コード：10 | 教員：園田美伽 | 教室：5102</div><div class="subject-entry" data-subject="スポーツ医学"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="木" data-subject="スポーツ医学" data-class=""> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/1-049.pdf" style="color:red; text-decoration:underline;">スポーツ医学</a> | コード：11 | 教員：尾崎勝博 | 教室：5104</div><div class="subject-entry" data-subject="数学ステップアップ講座B"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="木" data-subject="数学ステップアップ講座B" data-class="1クラス"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-021.pdf" style="color:black; text-decoration:underline;">数学ステップアップ講座B</a> | クラス：1クラス | コード：12 | 教員：土肥・大迫 | 教室：情報数学塾室・3201</div><div class="subject-entry" data-subject="(みんなの生成AIワークショップB)"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="木" data-subject="(みんなの生成AIワークショップB)" data-class=""> | 科目：<a href="https://sites.google.com/view/genai4e/%E3%81%BF%E3%82%93%E3%81%AA%E3%81%AE%E7%94%9F%E6%88%90ai%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97" style="color:black; text-decoration:underline;">(みんなの生成AIワークショップB)</a></div></td>
+<td><div class="subject-entry" data-subject="基礎数学II"><input type="checkbox" class="subject-checkbox" data-period="4限" data-semester="後期" data-day="金" data-subject="基礎数学II" data-class=""> | 年次：① | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-015.pdf" style="color:black; text-decoration:underline;">基礎数学II</a> | コード：24 | 教員：山梨顕友 | 教室：5102</div></td>
+</tr>
+<tr>
+<td rowspan="3">5限</td>
+<td>前期</td>
+<td><div class="subject-entry" data-subject="数学ステップアップ講座A"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="前期" data-day="月" data-subject="数学ステップアップ講座A" data-class="2クラス" disabled data-static-disabled="true"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-020.pdf" style="color:black; text-decoration:underline;">数学ステップアップ講座A</a> | クラス：2クラス | コード：01 | 教員：土肥・大迫 | 教室：情報数学塾室</div><div class="subject-entry" data-subject="教育原理"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="前期" data-day="月" data-subject="教育原理" data-class="教職"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/4-023.pdf" style="color:#00FFFF; text-decoration:underline;">教育原理</a> | クラス：教職 | コード：02 | 教員：山本　優 | 教室：5104</div></td>
+<td><div class="subject-entry" data-subject="(Wスクール基礎講座)"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="前期" data-day="火" data-subject="(Wスクール基礎講座)" data-class=""> | 科目：(Wスクール基礎講座) | 教室：5102</div></td>
+<td><div class="subject-entry" data-subject="教職概論"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="前期" data-day="水" data-subject="教職概論" data-class="教職"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/4-024.pdf" style="color:#00FFFF; text-decoration:underline;">教職概論</a> | クラス：教職 | コード：01 | 教員：小野創太 | 教室：5104</div></td>
+<td></td>
+<td><div class="subject-entry" data-subject="(Wスクール基礎講座)"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="前期" data-day="金" data-subject="(Wスクール基礎講座)" data-class=""> | 科目：(Wスクール基礎講座) | 教室：5102</div></td>
+</tr>
+<tr>
+<td>通年</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>後期</td>
+<td><div class="subject-entry" data-subject="数学ステップアップ講座B"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="後期" data-day="月" data-subject="数学ステップアップ講座B" data-class="2クラス" disabled data-static-disabled="true"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/3-021.pdf" style="color:black; text-decoration:underline;">数学ステップアップ講座B</a> | クラス：2クラス | コード：31 | 教員：土肥・大迫 | 教室：情報数学塾室</div></td>
+<td><div class="subject-entry" data-subject="教育心理学"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="後期" data-day="火" data-subject="教育心理学" data-class="教職"> | 年次：1 | 科目：<a href="https://www.miyasankei-u.ac.jp/syllabus/pdf/4-026.pdf" style="color:#00FFFF; text-decoration:underline;">教育心理学</a> | クラス：教職 | コード：04 | 教員：雜賀智子 | 教室：3103</div><div class="subject-entry" data-subject="(Wスクール公務員本科講座)"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="後期" data-day="火" data-subject="(Wスクール公務員本科講座)" data-class=""> | 科目：(Wスクール公務員本科講座) | 教室：5102</div></td>
+<td></td>
+<td><div class="subject-entry" data-subject="(Wスクール教職講座)"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="後期" data-day="木" data-subject="(Wスクール教職講座)" data-class=""> | 科目：(Wスクール教職講座) | 教室：5212</div></td>
+<td><div class="subject-entry" data-subject="(Wスクール公務員本科講座)"><input type="checkbox" class="subject-checkbox" data-period="5限" data-semester="後期" data-day="金" data-subject="(Wスクール公務員本科講座)" data-class=""> | 科目：(Wスクール公務員本科講座) | 教室：5102</div></td>
+</tr>
+</tbody>
+</table>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // --- 固定の凡例を出力 ---
+    var legendHTML = `
+      <div id="legend" style="font-size:14px; margin-bottom:10px;">
+        <strong>凡例：</strong>
+        <span>必修科目：<span style="background-color: gold; padding:2px 5px;">&nbsp;</span></span>
+        &nbsp;&nbsp;
+        <span>選択必修科目：<span style="background-color: lightgreen; padding:2px 5px;">&nbsp;</span></span>
+        &nbsp;&nbsp;
+        <span>履修不可：<span style="background-color: gray; padding:2px 5px;">&nbsp;</span></span>
+      </div>
+    `;
+    var container = document.getElementById("legend-container");
+    if (container) {
+        container.innerHTML = legendHTML;
+    } else {
+        var legendDiv = document.createElement("div");
+        legendDiv.innerHTML = legendHTML;
+        document.body.insertBefore(legendDiv, document.body.firstChild);
+    }
+    
+    // --- jsNormalizeSubject関数 ---
+    // Python側のnormalize_subject関数と同等の処理を行います。
+    function jsNormalizeSubject(subject) {
+        if (!subject) return "";
+        let norm = subject.normalize("NFKC");
+        norm = norm.replace(/Ⅰ/g, "I").replace(/Ⅱ/g, "II");
+        return norm.trim();
+    }
+    
+    // --- 定義：各科目のカテゴリ（すべてjsNormalizeSubjectで正規化済みの値） ---
+    var compulsorySubjects = [
+        jsNormalizeSubject("情報処理応用"),
+        jsNormalizeSubject("経営学総論Ａ"),
+        jsNormalizeSubject("経営学総論Ｂ"),
+        jsNormalizeSubject("情報倫理"),
+        jsNormalizeSubject("進路研究演習１")
+    ];
+    
+    var electiveCompulsorySubjectsAlways = [
+        jsNormalizeSubject("日本語理解Ａ（国語総合）"),
+        jsNormalizeSubject("日本語理解Ｂ（散文読解）"),
+        jsNormalizeSubject("英語基礎Ａ（初級英文法 ）"),
+        jsNormalizeSubject("英語基礎Ｂ（ 長文読解 ）"),
+        jsNormalizeSubject("数量的処理Ａ（基礎数学）"),
+        jsNormalizeSubject("数量的処理Ｂ（判断推理）")
+    ];
+    
+    var electiveCompulsoryByCourse = {
+        "総合経営": [
+            jsNormalizeSubject("簿記論Ⅰ"), 
+            jsNormalizeSubject("簿記論Ⅱ"), 
+            jsNormalizeSubject("上級簿記Ａ"), 
+            jsNormalizeSubject("上級簿記Ｂ")
+        ],
+        "スポーツマネジメント": [
+            jsNormalizeSubject("簿記論Ⅰ"), 
+            jsNormalizeSubject("簿記論Ⅱ"), 
+            jsNormalizeSubject("上級簿記Ａ"), 
+            jsNormalizeSubject("上級簿記Ｂ")
+        ],
+        "実践経済": [
+            jsNormalizeSubject("ミクロ経済学Ⅰ"),
+            jsNormalizeSubject("ミクロ経済学Ⅱ"),
+            jsNormalizeSubject("マクロ経済学Ⅰ"),
+            jsNormalizeSubject("マクロ経済学Ⅱ"),
+            jsNormalizeSubject("統計学Ⅰ"),
+            jsNormalizeSubject("統計学Ⅱ"),
+            jsNormalizeSubject("基礎数学Ⅰ"),
+            jsNormalizeSubject("基礎数学Ⅱ")
+        ],
+        "データサイエンス": [
+            jsNormalizeSubject("統計学Ⅰ"),
+            jsNormalizeSubject("統計学Ⅱ"),
+            jsNormalizeSubject("基礎数学Ⅰ"),
+            jsNormalizeSubject("基礎数学Ⅱ"),
+            jsNormalizeSubject("プログラミング基礎Ⅰ"),
+            jsNormalizeSubject("プログラミング基礎Ⅱ")
+        ]
+    };
+    
+    var sportsOnlySubjects = [
+        jsNormalizeSubject("スポーツ指導論"),
+        jsNormalizeSubject("スポーツ医学"),
+        jsNormalizeSubject("スポーツ社会学"),
+        jsNormalizeSubject("トレーニング科学"),
+        jsNormalizeSubject("スポーツ栄養学"),
+        jsNormalizeSubject("スポーツ心理学"),
+        jsNormalizeSubject("障がい者スポーツ論")
+    ];
+    
+    var teacherTrainingOnlySubjects = [
+        jsNormalizeSubject("教育原理"),
+        jsNormalizeSubject("教職概論"),
+        jsNormalizeSubject("教育行政学"),
+        jsNormalizeSubject("教育心理学")
+    ];
+    
+    // === チェックボックス状態の保存・読込 ===
+    // ファイル名（キー）はユーザーが入力する
+    function saveCheckboxState() {
+        var state = {};
+        // コースチェックボックス
+        var courseCheckboxes = document.querySelectorAll('.course-checkbox');
+        state.courses = [];
+        courseCheckboxes.forEach(function(cb) {
+            state.courses.push({ value: cb.value, checked: cb.checked });
+        });
+        // 教職課程チェックボックス
+        var kyoushoku = document.querySelector('input[name="kyoushoku"]');
+        state.kyoushoku = kyoushoku ? kyoushoku.checked : false;
+        // 各科目チェックボックス
+        var subjectCheckboxes = document.querySelectorAll('.subject-checkbox');
+        state.subjects = [];
+        subjectCheckboxes.forEach(function(cb) {
+            state.subjects.push({
+                period: cb.getAttribute("data-period"),
+                semester: cb.getAttribute("data-semester"),
+                day: cb.getAttribute("data-day"),
+                subject: cb.getAttribute("data-subject"),
+                checked: cb.checked
+            });
+        });
+        var filename = document.getElementById("storageFilename").value || "timetableState";
+        localStorage.setItem(filename, JSON.stringify(state));
+        alert("チェックボックスの状態を保存しました。キー：" + filename);
+    }
+    
+    function loadCheckboxState() {
+        var filename = document.getElementById("storageFilename").value || "timetableState";
+        var state = localStorage.getItem(filename);
+        if (state) {
+            state = JSON.parse(state);
+            // コースチェックボックス
+            var courseCheckboxes = document.querySelectorAll('.course-checkbox');
+            courseCheckboxes.forEach(function(cb) {
+                state.courses.forEach(function(item) {
+                    if (cb.value === item.value) {
+                        cb.checked = item.checked;
+                    }
+                });
+            });
+            // 教職課程チェックボックス
+            var kyoushoku = document.querySelector('input[name="kyoushoku"]');
+            if (kyoushoku) {
+                kyoushoku.checked = state.kyoushoku;
+            }
+            // 各科目チェックボックス
+            var subjectCheckboxes = document.querySelectorAll('.subject-checkbox');
+            subjectCheckboxes.forEach(function(cb) {
+                var cbPeriod = cb.getAttribute("data-period");
+                var cbSemester = cb.getAttribute("data-semester");
+                var cbDay = cb.getAttribute("data-day");
+                var cbSubject = cb.getAttribute("data-subject");
+                state.subjects.forEach(function(item) {
+                    if (cbPeriod === item.period && cbSemester === item.semester &&
+                        cbDay === item.day && cbSubject === item.subject) {
+                        cb.checked = item.checked;
+                    }
+                });
+            });
+            updateSubjectAvailability();
+            alert("チェックボックスの状態を読み込みました。キー：" + filename);
+        } else {
+            alert("保存された状態がありません。キー：" + filename);
+        }
+    }
+    
+    // --- 動的に履修可能な科目の更新 ---
+    function updateSubjectAvailability() {
+        var selectedCourse = document.querySelector('.course-checkbox:checked');
+        var selectedCourseValue = selectedCourse ? selectedCourse.value : "";
+        var kyoushokuCb = document.querySelector('input[name="kyoushoku"]');
+        var teacherTrainingSelected = kyoushokuCb ? kyoushokuCb.checked : false;
+        
+        document.querySelectorAll(".subject-checkbox").forEach(function(cb) {
+            var subj = cb.getAttribute("data-subject");
+            var normSubj = jsNormalizeSubject(subj);
+            var shouldDisable = false;
+            // スポーツ系科目は「スポーツマネジメント」以外では履修不可
+            if (sportsOnlySubjects.indexOf(normSubj) !== -1) {
+                if (selectedCourseValue !== "スポーツマネジメント") {
+                    shouldDisable = true;
+                }
+            }
+            // 教職系科目は、「履修」が選択されていなければ履修不可
+            if (teacherTrainingOnlySubjects.indexOf(normSubj) !== -1) {
+                if (!teacherTrainingSelected) {
+                    shouldDisable = true;
+                }
+            }
+            // 既に静的にdisabled設定されている科目（例：月曜5限の数学ステップアップ講座A/B(2クラス)）
+            if (cb.hasAttribute("data-static-disabled")) {
+                shouldDisable = true;
+            }
+            
+            if (shouldDisable) {
+                cb.disabled = true;
+                cb.checked = false;
+            } else {
+                cb.disabled = false;
+            }
+        });
+        updateSubjectBackgrounds();
+    }
+    
+    // --- 動的背景色更新 ---
+    function updateSubjectBackgrounds() {
+        var selectedCourse = document.querySelector('.course-checkbox:checked');
+        var selectedCourseValue = selectedCourse ? selectedCourse.value : "";
+        var teacherTrainingSelected = document.querySelector('input[name="kyoushoku"]').checked;
+        
+        document.querySelectorAll(".subject-entry").forEach(function(entryDiv) {
+            var subj = entryDiv.getAttribute("data-subject");
+            var normSubj = jsNormalizeSubject(subj);
+            var bgColor = "";
+            var cb = entryDiv.querySelector(".subject-checkbox");
+            if (cb && cb.disabled) {
+                bgColor = "gray";
+            } else {
+                if (compulsorySubjects.indexOf(normSubj) !== -1) {
+                    bgColor = "gold";
+                } else if (electiveCompulsorySubjectsAlways.indexOf(normSubj) !== -1) {
+                    bgColor = "lightgreen";
+                } else if (selectedCourseValue in electiveCompulsoryByCourse) {
+                    var courseSubjects = electiveCompulsoryByCourse[selectedCourseValue];
+                    if (courseSubjects.indexOf(normSubj) !== -1) {
+                        bgColor = "lightgreen";
+                    }
+                }
+            }
+            entryDiv.style.backgroundColor = bgColor;
+        });
+    }
+    
+    // --- コースチェックボックスの排他処理 ---
+    document.querySelectorAll('.course-checkbox').forEach(function(cb) {
+        cb.addEventListener('change', function(event) {
+            if (event.target.checked) {
+                document.querySelectorAll('.course-checkbox').forEach(function(other) {
+                    if(other !== event.target) {
+                        other.checked = false;
+                    }
+                });
+            }
+            updateSubjectAvailability();
+        });
+    });
+    var kyoushokuCb = document.querySelector('input[name="kyoushoku"]');
+    if (kyoushokuCb) {
+        kyoushokuCb.addEventListener('change', updateSubjectAvailability);
+    }
+    updateSubjectAvailability();
+    
+    // --- チェックボックス状態保存・読込ボタンの配置 ---
+    var stateButtonsHTML = `
+      <div style="margin-bottom: 10px; font-size:14px; text-align:center;">
+        保存ファイル名: <input type="text" id="storageFilename" value="timetableState">
+        <button id="saveStateButton">状態保存</button>
+        <button id="loadStateButton">状態読込</button>
+      </div>
+    `;
+    var teacherDiv = document.querySelector('div[style*="教職課程："]');
+    if (teacherDiv) {
+        teacherDiv.insertAdjacentHTML('afterend', stateButtonsHTML);
+    } else {
+        document.body.insertAdjacentHTML('afterbegin', stateButtonsHTML);
+    }
+    document.getElementById("saveStateButton").addEventListener("click", function() {
+        saveCheckboxState();
+    });
+    document.getElementById("loadStateButton").addEventListener("click", function() {
+        loadCheckboxState();
+        updateSubjectAvailability();
+    });
+    
+    // --- 各科目チェックボックスの制約処理 ---
+    var subjectCheckboxes = document.querySelectorAll(".subject-checkbox");
+    subjectCheckboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function(event) {
+            var cb = event.target;
+            if (cb.disabled) return;
+            
+            var period = cb.getAttribute("data-period");
+            var semester = cb.getAttribute("data-semester");
+            var day = cb.getAttribute("data-day");
+            var subject = cb.getAttribute("data-subject");
+            
+            // 制約 1: 同一セル内（同じ曜日・時限・学期）では1つのみ選択
+            if (cb.checked) {
+                var parentTD = cb.closest("td");
+                var cellCheckboxes = parentTD.querySelectorAll(".subject-checkbox");
+                cellCheckboxes.forEach(function(other) {
+                    if (other !== cb) {
+                        other.checked = false;
+                    }
+                });
+            }
+            
+            // 制約 2: 同じ曜日・時限内で、通年科目と前期／後期は排他
+            var group = document.querySelectorAll('.subject-checkbox[data-period="'+period+'"][data-day="'+day+'"]');
+            if (cb.checked) {
+                if (semester === "通年") {
+                    group.forEach(function(other) {
+                        if (other !== cb && (other.getAttribute("data-semester") === "前期" || other.getAttribute("data-semester") === "後期")) {
+                            other.checked = false;
+                        }
+                    });
+                } else if (semester === "前期" || semester === "後期") {
+                    group.forEach(function(other) {
+                        if (other.getAttribute("data-semester") === "通年" && other.checked) {
+                            alert("通年科目が選択されているため、前期・後期科目は選択できません。");
+                            cb.checked = false;
+                        }
+                    });
+                }
+            }
+            
+            // 制約 3: I→II の依存関係
+            if (cb.checked && subject.endsWith("II")) {
+                var baseSubject = subject.slice(0, -2) + "I";
+                var iCheckboxes = document.querySelectorAll('.subject-checkbox[data-subject="'+baseSubject+'"]');
+                var found = false;
+                iCheckboxes.forEach(function(iCb) {
+                    if (iCb.checked) { found = true; }
+                });
+                if (!found) {
+                    alert("対応する「" + baseSubject + "」が選択されていないため、「" + subject + "」は選択できません。");
+                    cb.checked = false;
+                }
+            }
+            if (!cb.checked && subject.endsWith("I")) {
+                var iiSubject = subject.slice(0, -1) + "II";
+                var iiCheckboxes = document.querySelectorAll('.subject-checkbox[data-subject="'+iiSubject+'"]');
+                iiCheckboxes.forEach(function(iiCb) {
+                    iiCb.checked = false;
+                });
+            }
+            
+            // 制約 4: 同一科目（クラスが異なる場合）の重複選択禁止
+            if (cb.checked) {
+                var sameSubject = document.querySelectorAll('.subject-checkbox[data-subject="'+subject+'"]');
+                sameSubject.forEach(function(other) {
+                    if (other !== cb) {
+                        other.checked = false;
+                    }
+                });
+            }
+            updateSubjectBackgrounds();
+        });
+    });
+});
+</script>
+
+</body></html>
