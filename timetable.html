@@ -215,16 +215,29 @@ document.addEventListener("DOMContentLoaded", function() {
         legendDiv.innerHTML = legendHTML;
         document.body.insertBefore(legendDiv, document.body.firstChild);
     }
-
+    
+    // --- CSSスタイルの追加 ---
+    var styleEl = document.createElement("style");
+    styleEl.innerHTML = `
+      table { border-collapse: collapse; }
+      th, td { border: 1px solid #000; padding: 5px; }
+      /* .selected クラスを追加：選択された科目エントリに太い青色の枠線を表示 */
+      .selected {
+        border: 3px solid blue;
+        padding: 5px;
+        margin: 2px;
+      }
+    `;
+    document.head.appendChild(styleEl);
+    
     // --- jsNormalizeSubject関数 ---
-    // Python側のnormalize_subject関数と同等の処理を行います。
     function jsNormalizeSubject(subject) {
         if (!subject) return "";
         let norm = subject.normalize("NFKC");
         norm = norm.replace(/Ⅰ/g, "I").replace(/Ⅱ/g, "II");
         return norm.trim();
     }
-
+    
     // --- 定義：各科目のカテゴリ（すべてjsNormalizeSubjectで正規化済みの値） ---
     var compulsorySubjects = [
         jsNormalizeSubject("情報処理応用"),
@@ -233,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
         jsNormalizeSubject("情報倫理"),
         jsNormalizeSubject("進路研究演習１")
     ];
-
+    
     var electiveCompulsorySubjectsAlways = [
         jsNormalizeSubject("日本語理解Ａ（国語総合）"),
         jsNormalizeSubject("日本語理解Ｂ（散文読解）"),
@@ -242,18 +255,18 @@ document.addEventListener("DOMContentLoaded", function() {
         jsNormalizeSubject("数量的処理Ａ（基礎数学）"),
         jsNormalizeSubject("数量的処理Ｂ（判断推理）")
     ];
-
+    
     var electiveCompulsoryByCourse = {
         "総合経営": [
-            jsNormalizeSubject("簿記論Ⅰ"),
-            jsNormalizeSubject("簿記論Ⅱ"),
-            jsNormalizeSubject("上級簿記Ａ"),
+            jsNormalizeSubject("簿記論Ⅰ"), 
+            jsNormalizeSubject("簿記論Ⅱ"), 
+            jsNormalizeSubject("上級簿記Ａ"), 
             jsNormalizeSubject("上級簿記Ｂ")
         ],
         "スポーツマネジメント": [
-            jsNormalizeSubject("簿記論Ⅰ"),
-            jsNormalizeSubject("簿記論Ⅱ"),
-            jsNormalizeSubject("上級簿記Ａ"),
+            jsNormalizeSubject("簿記論Ⅰ"), 
+            jsNormalizeSubject("簿記論Ⅱ"), 
+            jsNormalizeSubject("上級簿記Ａ"), 
             jsNormalizeSubject("上級簿記Ｂ")
         ],
         "実践経済": [
@@ -275,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function() {
             jsNormalizeSubject("プログラミング基礎Ⅱ")
         ]
     };
-
+    
     var sportsOnlySubjects = [
         jsNormalizeSubject("スポーツ指導論"),
         jsNormalizeSubject("スポーツ医学"),
@@ -285,28 +298,24 @@ document.addEventListener("DOMContentLoaded", function() {
         jsNormalizeSubject("スポーツ心理学"),
         jsNormalizeSubject("障がい者スポーツ論")
     ];
-
+    
     var teacherTrainingOnlySubjects = [
         jsNormalizeSubject("教育原理"),
         jsNormalizeSubject("教職概論"),
         jsNormalizeSubject("教育行政学"),
         jsNormalizeSubject("教育心理学")
     ];
-
-    // === チェックボックス状態の保存・読込 ===
-    // ファイル名（キー）はユーザーが入力する
+    
+    // --- チェックボックス状態の保存 ---
     function saveCheckboxState() {
         var state = {};
-        // コースチェックボックス
         var courseCheckboxes = document.querySelectorAll('.course-checkbox');
         state.courses = [];
         courseCheckboxes.forEach(function(cb) {
             state.courses.push({ value: cb.value, checked: cb.checked });
         });
-        // 教職課程チェックボックス
         var kyoushoku = document.querySelector('input[name="kyoushoku"]');
         state.kyoushoku = kyoushoku ? kyoushoku.checked : false;
-        // 各科目チェックボックス
         var subjectCheckboxes = document.querySelectorAll('.subject-checkbox');
         state.subjects = [];
         subjectCheckboxes.forEach(function(cb) {
@@ -322,13 +331,13 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem(filename, JSON.stringify(state));
         alert("チェックボックスの状態を保存しました。キー：" + filename);
     }
-
+    
+    // --- チェックボックス状態の読み込み ---
     function loadCheckboxState() {
         var filename = document.getElementById("storageFilename").value || "timetableState";
         var state = localStorage.getItem(filename);
         if (state) {
             state = JSON.parse(state);
-            // コースチェックボックス
             var courseCheckboxes = document.querySelectorAll('.course-checkbox');
             courseCheckboxes.forEach(function(cb) {
                 state.courses.forEach(function(item) {
@@ -337,12 +346,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
             });
-            // 教職課程チェックボックス
             var kyoushoku = document.querySelector('input[name="kyoushoku"]');
             if (kyoushoku) {
                 kyoushoku.checked = state.kyoushoku;
             }
-            // 各科目チェックボックス
             var subjectCheckboxes = document.querySelectorAll('.subject-checkbox');
             subjectCheckboxes.forEach(function(cb) {
                 var cbPeriod = cb.getAttribute("data-period");
@@ -362,35 +369,32 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("保存された状態がありません。キー：" + filename);
         }
     }
-
+    
     // --- 動的に履修可能な科目の更新 ---
     function updateSubjectAvailability() {
         var selectedCourse = document.querySelector('.course-checkbox:checked');
         var selectedCourseValue = selectedCourse ? selectedCourse.value : "";
         var kyoushokuCb = document.querySelector('input[name="kyoushoku"]');
         var teacherTrainingSelected = kyoushokuCb ? kyoushokuCb.checked : false;
-
+        
         document.querySelectorAll(".subject-checkbox").forEach(function(cb) {
             var subj = cb.getAttribute("data-subject");
             var normSubj = jsNormalizeSubject(subj);
             var shouldDisable = false;
-            // スポーツ系科目は「スポーツマネジメント」以外では履修不可
             if (sportsOnlySubjects.indexOf(normSubj) !== -1) {
                 if (selectedCourseValue !== "スポーツマネジメント") {
                     shouldDisable = true;
                 }
             }
-            // 教職系科目は、「履修」が選択されていなければ履修不可
             if (teacherTrainingOnlySubjects.indexOf(normSubj) !== -1) {
                 if (!teacherTrainingSelected) {
                     shouldDisable = true;
                 }
             }
-            // 既に静的にdisabled設定されている科目（例：月曜5限の数学ステップアップ講座A/B(2クラス)）
             if (cb.hasAttribute("data-static-disabled")) {
                 shouldDisable = true;
             }
-
+            
             if (shouldDisable) {
                 cb.disabled = true;
                 cb.checked = false;
@@ -399,14 +403,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
         updateSubjectBackgrounds();
+        updateSubjectAppearance();
     }
-
+    
     // --- 動的背景色更新 ---
     function updateSubjectBackgrounds() {
         var selectedCourse = document.querySelector('.course-checkbox:checked');
         var selectedCourseValue = selectedCourse ? selectedCourse.value : "";
         var teacherTrainingSelected = document.querySelector('input[name="kyoushoku"]').checked;
-
+        
         document.querySelectorAll(".subject-entry").forEach(function(entryDiv) {
             var subj = entryDiv.getAttribute("data-subject");
             var normSubj = jsNormalizeSubject(subj);
@@ -429,7 +434,19 @@ document.addEventListener("DOMContentLoaded", function() {
             entryDiv.style.backgroundColor = bgColor;
         });
     }
-
+    
+    // --- 選択された科目に太い枠線を付ける ---
+    function updateSubjectAppearance() {
+        document.querySelectorAll('.subject-entry').forEach(function(entry) {
+            var cb = entry.querySelector('.subject-checkbox');
+            if (cb && cb.checked) {
+                entry.classList.add("selected");
+            } else {
+                entry.classList.remove("selected");
+            }
+        });
+    }
+    
     // --- コースチェックボックスの排他処理 ---
     document.querySelectorAll('.course-checkbox').forEach(function(cb) {
         cb.addEventListener('change', function(event) {
@@ -448,7 +465,7 @@ document.addEventListener("DOMContentLoaded", function() {
         kyoushokuCb.addEventListener('change', updateSubjectAvailability);
     }
     updateSubjectAvailability();
-
+    
     // --- チェックボックス状態保存・読込ボタンの配置 ---
     var stateButtonsHTML = `
       <div style="margin-bottom: 10px; font-size:14px; text-align:center;">
@@ -470,19 +487,19 @@ document.addEventListener("DOMContentLoaded", function() {
         loadCheckboxState();
         updateSubjectAvailability();
     });
-
+    
     // --- 各科目チェックボックスの制約処理 ---
     var subjectCheckboxes = document.querySelectorAll(".subject-checkbox");
     subjectCheckboxes.forEach(function(checkbox) {
         checkbox.addEventListener("change", function(event) {
             var cb = event.target;
             if (cb.disabled) return;
-
+            
             var period = cb.getAttribute("data-period");
             var semester = cb.getAttribute("data-semester");
             var day = cb.getAttribute("data-day");
             var subject = cb.getAttribute("data-subject");
-
+            
             // 制約 1: 同一セル内（同じ曜日・時限・学期）では1つのみ選択
             if (cb.checked) {
                 var parentTD = cb.closest("td");
@@ -493,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
             }
-
+            
             // 制約 2: 同じ曜日・時限内で、通年科目と前期／後期は排他
             var group = document.querySelectorAll('.subject-checkbox[data-period="'+period+'"][data-day="'+day+'"]');
             if (cb.checked) {
@@ -512,7 +529,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     });
                 }
             }
-
+            
             // 制約 3: I→II の依存関係
             if (cb.checked && subject.endsWith("II")) {
                 var baseSubject = subject.slice(0, -2) + "I";
@@ -533,7 +550,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     iiCb.checked = false;
                 });
             }
-
+            
             // 制約 4: 同一科目（クラスが異なる場合）の重複選択禁止
             if (cb.checked) {
                 var sameSubject = document.querySelectorAll('.subject-checkbox[data-subject="'+subject+'"]');
@@ -544,6 +561,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
             updateSubjectBackgrounds();
+            updateSubjectAppearance();
         });
     });
 });
