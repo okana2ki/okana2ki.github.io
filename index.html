@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レスポンシブタイルレイアウト</title>
+  <style>
+    /* ベーシックリセット */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ヘッダー */
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #f2f2f2;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* コンテナ */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    /* タイルの基本スタイル（PCの場合は1行に4枚程度） */
+    .tile {
+      display: block;
+      width: calc(25% - 16px);
+      background-color: #f9f9f9;
+      text-decoration: none;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    /* タイル内の画像 */
+    .tile img {
+      width: 100%;
+      display: block;
+    }
+
+    /* タイル内のテキスト部分 */
+    .tile .content {
+      padding: 16px;
+    }
+    .tile .content h2 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .tile .content p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* ホバー時のエフェクト */
+    .tile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    /* 768px以下の場合、2列レイアウト */
+    @media (max-width: 768px) {
+      .tile {
+        width: calc(50% - 16px);
+      }
+    }
+
+    /* 480px以下の場合、1列レイアウト */
+    @media (max-width: 480px) {
+      .tile {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ページのタイトルと説明 -->
+  <header>
+    <h1>レスポンシブタイルレイアウト</h1>
+    <p>これは、PCやスマホなどさまざまなデバイスで閲覧できるタイル形式のレイアウトサンプルです。</p>
+  </header>
+
+  <!-- タイルコンテナ -->
+  <div class="container">
+    <!-- タイルの例 -->
+    <a class="tile" href="page1.html">
+      <img src="image1.jpg" alt="画像1">
+      <div class="content">
+        <h2>見出し1</h2>
+        <p>短い説明文1</p>
+      </div>
+    </a>
+    <a class="tile" href="page2.html">
+      <img src="image2.jpg" alt="画像2">
+      <div class="content">
+        <h2>見出し2</h2>
+        <p>短い説明文2</p>
+      </div>
+    </a>
+    <a class="tile" href="https://example.com">
+      <img src="image3.jpg" alt="画像3">
+      <div class="content">
+        <h2>見出し3</h2>
+        <p>短い説明文3</p>
+      </div>
+    </a>
+    <a class="tile" href="page4.html">
+      <img src="image4.jpg" alt="画像4">
+      <div class="content">
+        <h2>見出し4</h2>
+        <p>短い説明文4</p>
+      </div>
+    </a>
+    <!-- 必要に応じてタイルを追加・削除できます -->
+  </div>
+</body>
+</html>
