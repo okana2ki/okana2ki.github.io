@@ -11,7 +11,9 @@
     :root {
       --primary-color: #2575fc;
       --secondary-color: #6a11cb;
-      --header-bg: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      /* ヘッダー背景を写真に変更 */
+      --header-bg: url('tennis.JPG');
+      --overlay-color: rgba(0, 0, 0, 0.5);
       --text-color: #333;
       --light-text: #666;
       --bg-color: #f9f9f9;
@@ -30,13 +32,29 @@
       background-color: #fff;
     }
 
-    /* ヘッダー */
+    /* ヘッダー：背景画像とオーバーレイ付き */
     header {
+      position: relative;
       text-align: center;
-      padding: 20px;
-      background: var(--header-bg);
+      padding: 60px 20px;
+      background: var(--header-bg) no-repeat center center/cover;
       color: #fff;
       margin-bottom: 20px;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--overlay-color);
+      z-index: 0;
+    }
+    header h1,
+    header p {
+      position: relative;
+      z-index: 1;
     }
     header h1 {
       font-size: 2rem;
@@ -162,13 +180,13 @@
   </style>
 </head>
 <body>
-  <!-- ページのタイトルと説明 -->
+  <!-- ヘッダー（背景画像とオーバーレイ付き） -->
   <header>
     <h1>Oka Natsuki - 岡 夏樹</h1>
     <p>
       Welcome! ようこそ
       <br>
-      このサイトは、<a href= "https://chatgpt.com/share/67f37223-6b48-8004-9f3e-045a0f3ddd6b" >生成AIで作成</a>しました
+      （このサイトは、<a href="https://chatgpt.com/share/67f37223-6b48-8004-9f3e-045a0f3ddd6b" style="color: #fff;">生成AIで作成</a>しました）
     </p>
   </header>
 
