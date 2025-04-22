@@ -149,6 +149,9 @@
     .tile .content p {
       font-size: 1rem;
       color: var(--light-text);
+      overflow: hidden; /* はみ出しを隠す */
+      text-overflow: ellipsis; /* 省略記号を表示 */
+      white-space: nowrap; /* テキストを1行に制限 */
     }
 
     /* レスポンシブ対応 */
