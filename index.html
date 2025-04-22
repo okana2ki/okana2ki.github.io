@@ -42,6 +42,8 @@
     .tile .content h2 a {text-decoration: underline; color: var(--text-color);}
     /* 本文内リンク：1-4枚目のタイルは下線無し */
     .tile .content p a {text-decoration: none; color: var(--light-text);}
+    /* 1-4枚目のタイル本文全体の下線を削除 */
+    .container > a.tile .content p {text-decoration: none;}
     /* 5枚目のタイル本文リンクは下線有り */
     .container .tile:nth-child(5) .content p a {text-decoration: underline;}
     .tile .content p {font-size: 1rem; color: var(--light-text); overflow-wrap: break-word; word-wrap: break-word; white-space: normal;}
