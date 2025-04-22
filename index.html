@@ -17,179 +17,46 @@
       --light-text: #666;
       --bg-color: #f9f9f9;
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: var(--text-color);
-      background-color: #fff;
-    }
-    header {
-      position: relative;
-      text-align: center;
-      padding: 60px 20px;
-      background: var(--header-bg) no-repeat center center/cover;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--overlay-color);
-      z-index: 0;
-    }
-    header h1,
-    header p {
-      position: relative;
-      z-index: 1;
-    }
-    header h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 1rem;
-    }
-    nav {
-      background: var(--primary-color);
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-      justify-content: center;
-    }
-    nav ul li {
-      margin: 0 15px;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      padding: 10px 15px;
-      display: block;
-    }
-    nav ul li a:hover {
-      background-color: rgba(255,255,255,0.2);
-      border-radius: 4px;
-    }
-    .download-link {
-      text-align: center;
-      margin: 20px;
-      font-size: 1rem;
-    }
-    .download-link a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 700;
-    }
-    .download-link a:hover {
-      text-decoration: underline;
-    }
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      padding: 20px;
-      justify-content: flex-start;
-    }
-    .tile {
-      background-color: var(--bg-color);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      width: calc(25% - 16px);
-      display: flex;
-      flex-direction: column;
-    }
-    .tile:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
-    .tile img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      display: block;
-    }
-    .tile .content {
-      padding: 16px;
-      flex: 1;
-    }
-    .tile .content h2 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-    .tile .content h2 a {
-      color: var(--text-color);
-      text-decoration: none;
-    }
-    .tile .content h2 a:hover {
-      text-decoration: underline;
-    }
-    .tile .content p {
-      font-size: 1rem;
-      color: var(--light-text);
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      white-space: normal;
-    }
-    @media (max-width: 768px) {
-      .tile {
-        width: calc(50% - 16px);
-      }
-    }
-    @media (max-width: 480px) {
-      .tile {
-        width: 100%;
-      }
-      nav ul {
-        flex-direction: column;
-      }
-      nav ul li {
-        margin: 5px 0;
-      }
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #f2f2f2;
-      color: var(--text-color);
-      font-size: 0.9rem;
-      margin-top: 20px;
-    }
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {font-family: 'Roboto', sans-serif; color: var(--text-color); background-color: #fff;}
+    header {position: relative; text-align: center; padding: 60px 20px; background: var(--header-bg) no-repeat center/cover; color: #fff; margin-bottom: 20px;}
+    header::before {content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--overlay-color); z-index: 0;}
+    header h1, header p {position: relative; z-index: 1;}
+    header h1 {font-size: 2rem; margin-bottom: 10px;}
+    header p {font-size: 1rem;}
+    nav {background: var(--primary-color);}
+    nav ul {display: flex; list-style: none; justify-content: center;}
+    nav ul li {margin: 0 15px;}
+    nav ul li a {color: #fff; text-decoration: none; font-weight: 700; padding: 10px 15px; display: block;}
+    nav ul li a:hover {background-color: rgba(255,255,255,0.2); border-radius: 4px;}
+    .download-link {text-align: center; margin: 20px; font-size: 1rem;}
+    .download-link a {color: var(--primary-color); text-decoration: none; font-weight: 700;}
+    .download-link a:hover {text-decoration: underline;}
+    .container {display: flex; flex-wrap: wrap; gap: 16px; padding: 20px; justify-content: flex-start;}
+    .tile {background-color: var(--bg-color); border-radius: 8px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: calc(25% - 16px); display: flex; flex-direction: column;}
+    .tile:hover {transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1;}
+    .tile img {width: 100%; height: 180px; object-fit: cover; display: block;}
+    .tile .content {padding: 16px; flex: 1;}
+    /* タイトルを下線付きに */
+    .tile .content h2,
+    .tile .content h2 a {text-decoration: underline; color: var(--text-color);}
+    /* 本文内リンク：1-4枚目のタイルは下線無し */
+    .tile .content p a {text-decoration: none; color: var(--light-text);}
+    /* 5枚目のタイル本文リンクは下線有り */
+    .container .tile:nth-child(5) .content p a {text-decoration: underline;}
+    .tile .content p {font-size: 1rem; color: var(--light-text); overflow-wrap: break-word; word-wrap: break-word; white-space: normal;}
+    @media (max-width: 768px) {.tile {width: calc(50% - 16px);}}
+    @media (max-width: 480px) { .tile {width: 100%;} nav ul {flex-direction: column;} nav ul li {margin: 5px 0;} }
+    footer {text-align: center; padding: 20px; background: #f2f2f2; color: var(--text-color); font-size: 0.9rem; margin-top: 20px;}
   </style>
 </head>
 <body>
   <header>
     <h1>Oka Natsuki - 岡 夏樹</h1>
-    <p>
-      Welcome! ようこそ
-      <br>
-      （このサイトは、<a href="https://chatgpt.com/share/67f37223-6b48-8004-9f3e-045a0f3ddd6b" style="color: #fff;">生成AIで作成</a>しました）
-    </p>
+    <p>Welcome! ようこそ<br>（このサイトは、<a href="https://chatgpt.com/share/67f37223-6b48-8004-9f3e-045a0f3ddd6b" style="color: #fff;">生成AIで作成</a>しました）</p>
   </header>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home ホーム</a></li>
-      <li><a href="https://okana2ki.wordpress.com/">About Me 私について</a></li>
-      <li><a href="https://okana2ki.wordpress.com/jp/#%E8%B3%AA%E5%95%8F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0-1">Contact 問い合わせ</a></li>
-    </ul>
-  </nav>
-  <div class="download-link">
-    <p>
-      <a href="2025DS.pdf">スライド「データサイエンスコース履修ガイダンス2025」</a>
-      <br>
-      <a href="DL4G.pdf">スライド「ITリーダ塾：G検定ガイダンス2025」</a>
-    </p>
-  </div>
+  <nav><ul><li><a href="index.html">Home ホーム</a></li><li><a href="https://okana2ki.wordpress.com/">About Me 私について</a></li><li><a href="https://okana2ki.wordpress.com/jp/#%E8%B3%AA%E5%95%8F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0-1">Contact 問い合わせ</a></li></ul></nav>
+  <div class="download-link"><p><a href="2025DS.pdf">スライド「データサイエンスコース履修ガイダンス2025」</a><br><a href="DL4G.pdf">スライド「ITリーダ塾：G検定ガイダンス2025」</a></p></div>
   <div class="container">
     <a class="tile" href="https://sites.google.com/view/genai4e/">
       <img src="tsubomi.JPG" alt="tsubomi">
@@ -234,8 +101,6 @@
       </div>
     </div>
   </div>
-  <footer>
-    <p>&copy; 2025 Oka Natsuki. All rights reserved.</p>
-  </footer>
+  <footer><p>&copy; 2025 Oka Natsuki. All rights reserved.</p></footer>
 </body>
 </html>
