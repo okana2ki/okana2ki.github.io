@@ -151,7 +151,8 @@
       color: var(--light-text);
       overflow: hidden; /* はみ出しを隠す */
       text-overflow: ellipsis; /* 省略記号を表示 */
-      white-space: nowrap; /* テキストを1行に制限 */
+      word-wrap: break-word; /* テキストを折り返す */
+      white-space: normal; /* 折り返しを有効にする */
     }
 
     /* レスポンシブ対応 */
