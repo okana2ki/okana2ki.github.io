@@ -11,28 +11,22 @@
     :root {
       --primary-color: #2575fc;
       --secondary-color: #6a11cb;
-      /* ヘッダー背景を写真に変更 */
       --header-bg: url('tennis.JPG');
       --overlay-color: rgba(0, 0, 0, 0.5);
       --text-color: #333;
       --light-text: #666;
       --bg-color: #f9f9f9;
     }
-
-    /* ベーシックリセット */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Roboto', sans-serif;
       color: var(--text-color);
       background-color: #fff;
     }
-
-    /* ヘッダー：背景画像とオーバーレイ付き */
     header {
       position: relative;
       text-align: center;
@@ -63,8 +57,6 @@
     header p {
       font-size: 1rem;
     }
-
-    /* ナビゲーションバー */
     nav {
       background: var(--primary-color);
     }
@@ -87,8 +79,6 @@
       background-color: rgba(255,255,255,0.2);
       border-radius: 4px;
     }
-
-    /* ファイルダウンロードリンク */
     .download-link {
       text-align: center;
       margin: 20px;
@@ -102,60 +92,55 @@
     .download-link a:hover {
       text-decoration: underline;
     }
-
-    /* コンテナ */
     .container {
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
       padding: 20px;
-      /* justify-content: center; */
-      justify-content: flex-start; /* 左詰めに変更 */
+      justify-content: flex-start;
     }
-
-    /* タイルの基本スタイル */
     .tile {
-      display: block;
-      width: calc(25% - 16px);
       background-color: var(--bg-color);
-      text-decoration: none;
-      color: var(--text-color);
       border-radius: 8px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
+      width: calc(25% - 16px);
+      display: flex;
+      flex-direction: column;
     }
     .tile:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
-
-    /* タイル内の画像 */
     .tile img {
       width: 100%;
       height: 180px;
       object-fit: cover;
       display: block;
     }
-
-    /* タイル内のテキスト */
     .tile .content {
       padding: 16px;
+      flex: 1;
     }
     .tile .content h2 {
       font-size: 1.2rem;
       margin-bottom: 8px;
     }
+    .tile .content h2 a {
+      color: var(--text-color);
+      text-decoration: none;
+    }
+    .tile .content h2 a:hover {
+      text-decoration: underline;
+    }
     .tile .content p {
       font-size: 1rem;
       color: var(--light-text);
-      overflow: hidden; /* はみ出しを隠す */
-      text-overflow: ellipsis; /* 省略記号を表示 */
-      word-wrap: break-word; /* テキストを折り返す */
-      white-space: normal; /* 折り返しを有効にする */
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      white-space: normal;
     }
-
-    /* レスポンシブ対応 */
     @media (max-width: 768px) {
       .tile {
         width: calc(50% - 16px);
@@ -172,8 +157,6 @@
         margin: 5px 0;
       }
     }
-
-    /* フッター */
     footer {
       text-align: center;
       padding: 20px;
@@ -185,7 +168,6 @@
   </style>
 </head>
 <body>
-  <!-- ヘッダー（背景画像とオーバーレイ付き） -->
   <header>
     <h1>Oka Natsuki - 岡 夏樹</h1>
     <p>
@@ -194,8 +176,6 @@
       （このサイトは、<a href="https://chatgpt.com/share/67f37223-6b48-8004-9f3e-045a0f3ddd6b" style="color: #fff;">生成AIで作成</a>しました）
     </p>
   </header>
-
-  <!-- ナビゲーションバー -->
   <nav>
     <ul>
       <li><a href="index.html">Home ホーム</a></li>
@@ -203,9 +183,6 @@
       <li><a href="https://okana2ki.wordpress.com/jp/#%E8%B3%AA%E5%95%8F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0-1">Contact 問い合わせ</a></li>
     </ul>
   </nav>
-
-  <!-- ファイルのダウンロードリンク -->
-  <!-- ダウンロードリンクにするには、dowload属性を付ける 例：<a href="2025DS.pdf" download> --> 
   <div class="download-link">
     <p>
       <a href="2025DS.pdf">スライド「データサイエンスコース履修ガイダンス2025」</a>
@@ -213,10 +190,7 @@
       <a href="DL4G.pdf">スライド「ITリーダ塾：G検定ガイダンス2025」</a>
     </p>
   </div>
-
-  <!-- タイルコンテナ -->
   <div class="container">
-    <!-- タイルの例 -->
     <a class="tile" href="https://sites.google.com/view/genai4e/">
       <img src="tsubomi.JPG" alt="tsubomi">
       <div class="content">
@@ -245,19 +219,21 @@
         <p>2025年度経営学部1年次生のための履修登録支援ガイドです</p>
       </div>
     </a>
-    <a class="tile" href="https://teachablemachine.withgoogle.com/models/bOpabf_cP/">
-      <img src="facial-exp-recognition.png" alt="facial expression recognition image">
+    <div class="tile">
+      <a href="https://teachablemachine.withgoogle.com/models/bOpabf_cP/">
+        <img src="facial-exp-recognition.png" alt="facial expression recognition image">
+      </a>
       <div class="content">
-        <h2>顔の表情認識</h2>
-        <p><a href="https://teachablemachine.withgoogle.com/">Teachable Machine</a>で学習しました。
-          学習データは<a href="https://www.kaggle.com/datasets/msambare/fer2013">FER-2013</a>の一部を使用。
-          trainからhappy, sadを各500枚使用（85%: 学習, 15%: テスト）。
-          これとは別にvalidationからのhappy, sad各100枚も合わせて、<a href="images.zip" download>ここ</a>からダウンロードできます。</p>
+        <h2><a href="https://teachablemachine.withgoogle.com/models/bOpabf_cP/">顔の表情認識</a></h2>
+        <p>
+          <a href="https://teachablemachine.withgoogle.com/">Teachable Machine</a>で学習しました。学習データは
+          <a href="https://www.kaggle.com/datasets/msambare/fer2013">FER-2013</a>の一部を使用。
+          trainからhappy, sadを各500枚使用（85％: 学習, 15％: テスト）。
+          validationからhappy, sad各100枚も合わせて、<a href="images.zip" download>ここ</a>からダウンロードできます。
+        </p>
       </div>
-    </a>
+    </div>
   </div>
-
-  <!-- フッター -->
   <footer>
     <p>&copy; 2025 Oka Natsuki. All rights reserved.</p>
   </footer>
