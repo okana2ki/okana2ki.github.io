@@ -20,42 +20,42 @@ th, td { border: 1px solid #000; padding: 5px; }
 <div style="margin-bottom: 20px;">
   <!-- 使い方 -->
   <div style="margin-bottom: 10px; font-size: 14px;">
-    使い方：①コースを選択（下記のチェックボックス）；②教職課程を履修する場合はチェック（下記のチェックボックス）；③シラバス（科目名がシラバスへのリンクになっている）を参照しつつ、履修科目をチェック（科目先頭のチェックボックス）；④選択結果や選択途中の状態を保存したい場合は、画面上部の「状態保存」ボタンで保存、保存した状態は「状態読込」ボタンで読み込んで続きの選択ができます（別のPCや別のスマホとは保存状態は共有されません）
+    <strong>使い方：</strong>①コースを選択（下記のチェックボックス）；②教職課程を履修する場合はチェック（下記のチェックボックス）；③シラバス（科目名がシラバスへのリンクになっている）を参照しつつ、履修科目をチェック（科目先頭のチェックボックス）；④選択結果や選択途中の状態を保存したい場合は、画面上部の「状態保存」ボタンで保存、保存した状態は「状態読込」ボタンで読み込んで続きの選択ができます（別のPCや別のスマホとは保存状態は共有されません）
   </div>
   <div style="margin-bottom: 10px; font-size: 14px;">
-    動作説明：コースや教職の選択状態に応じて必修／選択必修／履修不可科目を動的に切り替えます。チェックボックスはトグル動作（選択／非選択が交互に切り替わる）です。以下の制約が自動判断されます：同じコマの科目は1つしか選択できない；Iの科目を選択しないとIIの科目は選択できない；同じ科目名の科目は1つしか選択できない。
+    <strong>動作説明：</strong>コースや教職の選択状態に応じて必修／選択必修／履修不可科目を動的に切り替えます。チェックボックスはトグル動作（選択／非選択が交互に切り替わる）です。以下の制約が自動判断されます：同じコマの科目は1つしか選択できない；Iの科目を選択しないとIIの科目は選択できない；同じ科目名の科目は1つしか選択できない。
   </div>
   <div style="margin-bottom: 10px; font-size: 14px;">
-    使用上の注意：履修登録単位数の上限（年間49単位）は自動チェックしていません。コース指定科目／コース選択科目／推奨科目は背景色表示はしていません。教職課程の必修科目は背景色表示はしていません。
+    <strong>使用上の注意：</strong>履修登録単位数の上限（年間49単位）は自動チェックしていません。コース指定科目／コース選択科目／推奨科目は背景色表示はしていません。教職課程の必修科目は背景色表示はしていません。
   </div>
   <div style="margin-bottom: 10px; font-size: 14px;">
-    お誘い：こんな感じの便利ツールを自作したい！と思った人は、ぜひ、木曜4限の<a href= "https://sites.google.com/view/genai4e/%E3%81%BF%E3%82%93%E3%81%AA%E3%81%AE%E7%94%9F%E6%88%90ai%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97" >みんなの生成AIワークショップ</a>へ。生成AIに手伝ってもらうので、きっとあなたにも作れます。
+    <strong>お誘い：</strong>こんな感じの便利ツールを自作したい！と思った人は、ぜひ、木曜4限の<a href= "https://sites.google.com/view/genai4e/workshop" >みんなの生成AIワークショップ</a>へ。生成AIに手伝ってもらうので、きっとあなたにも作れます。
   </div>
   <!-- 1行目：経営学科のコース -->
   <div style="margin-bottom: 10px; font-size: 14px;">
-    経営学科のコース：
+    <strong>経営学科のコース：</strong>
     <label style="margin-right: 15px;">
-      <input type="checkbox" name="course" value="総合経営" class="course-checkbox"> 総合経営
+      <input type="checkbox" name="course" value="総合経営" class="course-checkbox"> <strong>総合経営</strong>
     </label>
     <label style="margin-right: 15px;">
-      <input type="checkbox" name="course" value="スポーツマネジメント" class="course-checkbox"> スポーツマネジメント
+      <input type="checkbox" name="course" value="スポーツマネジメント" class="course-checkbox"> <strong>スポーツマネジメント</strong>
     </label>
   </div>
   <!-- 2行目：エコノデータサイエンス学科のコース -->
   <div style="margin-bottom: 10px; font-size: 14px;">
-    エコノデータサイエンス学科のコース：
+    <strong>エコノデータサイエンス学科のコース：</strong>
     <label style="margin-right: 15px;">
-      <input type="checkbox" name="course" value="実践経済" class="course-checkbox"> 実践経済
+      <input type="checkbox" name="course" value="実践経済" class="course-checkbox"> <strong>実践経済</strong>
     </label>
     <label style="margin-right: 15px;">
-      <input type="checkbox" name="course" value="データサイエンス" class="course-checkbox"> データサイエンス
+      <input type="checkbox" name="course" value="データサイエンス" class="course-checkbox"> <strong>データサイエンス</strong>
     </label>
   </div>
   <!-- 3行目：教職課程 -->
   <div style="font-size: 14px;">
-    教職課程（経営学科に所属する学生のみ選択可能）：
+    <strong>教職課程（経営学科に所属する学生のみ選択可能）：</strong>
     <label>
-      <input type="checkbox" name="kyoushoku" value="履修"> 履修
+      <input type="checkbox" name="kyoushoku" value="履修"> <strong>履修</strong>
     </label>
   </div>
 </div>
