@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oka Natsuki</title>
+  <title>表情認識</title>
   <!-- Google Fonts: Roboto -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -11,7 +11,7 @@
     :root {
       --primary-color: #2575fc;
       --secondary-color: #6a11cb;
-      --header-bg: url('tennis.JPG');
+      --header-bg: url('../tennis.JPG');
       --overlay-color: rgba(0, 0, 0, 0.5);
       --text-color: #333;
       --light-text: #666;
@@ -32,15 +32,13 @@
     .download-link {text-align: center; margin: 20px; font-size: 1rem;}
     .download-link a {color: var(--primary-color); text-decoration: none; font-weight: 700;}
     .download-link a:hover {text-decoration: underline;}
-    .container {display: flex; flex-wrap: wrap; gap: 16px; padding: 20px; justify-content: flex-start;}
-    .tile {background-color: var(--bg-color); border-radius: 8px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; width: calc(25% - 16px); display: flex; flex-direction: column; text-decoration: none;}
-    .tile:hover {transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1;}
-    .tile img {width: 100%; height: 180px; object-fit: cover; display: block;}
-    .tile .content {padding: 16px; flex: 1;}
-    .tile .content h2 {color: var(--primary-color);}
-    .tile .content p {font-size: 1rem; color: var(--light-text); overflow-wrap: break-word; word-wrap: break-word; white-space: normal;}
-    @media (max-width: 768px) {.tile {width: calc(50% - 16px);}}
-    @media (max-width: 480px) { .tile {width: 100%;} nav ul {flex-direction: column;} nav ul li {margin: 5px 0;} }
+    .page-intro {display: flex; align-items: flex-start; gap: 20px; padding: 20px; max-width: 900px; margin: 0 auto;}
+    .page-intro img {width: 200px; max-width: 100%; border-radius: 8px; object-fit: cover;}
+    .page-intro .intro-text {flex: 1;}
+    .page-intro h2 {font-size: 1.75rem; margin-bottom: 12px;}
+    .page-intro p {font-size: 1rem; line-height: 1.7; color: var(--light-text);}
+    @media (max-width: 768px) {.page-intro {flex-direction: column; align-items: stretch;}}
+    @media (max-width: 480px) { nav ul {flex-direction: column;} nav ul li {margin: 5px 0;} }
     footer {text-align: center; padding: 20px; background: #f2f2f2; color: var(--text-color); font-size: 0.9rem; margin-top: 20px;}
   </style>
 </head>
@@ -50,51 +48,13 @@
     <p>Welcome! ようこそ<br>（このサイトは、<a href="https://chatgpt.com/share/67f37223-6b48-8004-9f3e-045a0f3ddd6b" style="color: #fff;">生成AIで作成</a>しました）</p>
   </header>
   <nav><ul><li><a href="index.html">Home ホーム</a></li><li><a href="https://okana2ki.wordpress.com/">About Me 私について</a></li><li><a href="https://okana2ki.wordpress.com/jp/#%E8%B3%AA%E5%95%8F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0-1">Contact 問い合わせ</a></li></ul></nav>
-  <div class="download-link"><p><a href="2026DS.pdf">スライド「データサイエンスコース履修ガイダンス2026」</a><br><a href="DL4G.pdf">スライド「ITリーダ塾：G検定ガイダンス2025」</a></p></div>
-  <div class="container">
-    <a class="tile" href="https://sites.google.com/view/genai4e/">
-      <img src="tsubomi.JPG" alt="tsubomi">
-      <div class="content">
-        <h2>みんなの生成AI研究所</h2>
-        <p>みんなが生成AIを使いこなせて人生を楽しめる社会をめざします</p>
-      </div>
-    </a>
-    <a class="tile" href="https://sites.google.com/view/genai4e/workshop">
-      <img src="tsutsuji.JPG" alt="tsutsuji">
-      <div class="content">
-        <h2>みんなの生成AIワークショップ</h2>
-        <p>「生成AI＋デザイン思考」による課題解決をチームで体験</p>
-      </div>
-    </a>
-    <a class="tile" href="timetable2026.html">
-      <img src="form.png" alt="form image">
-      <div class="content">
-        <h2>経営学部 履修登録検討用フォーム</h2>
-        <p>2026年度1年次生用（β版）</p>
-      </div>
-    </a>
-    <a class="tile" href="https://chatgpt.com/g/g-67f09dea01c0819194937eb744dfaffb-lu-xiu-deng-lu-zhi-yuan">
-      <img src="chatbot.png" alt="chatbot image">
-      <div class="content">
-        <h2>経営学科 履修登録支援チャットボット</h2>
-        <p>2026年度1年次生用</p>
-      </div>
-    </a>
-    <a class="tile" href="https://chatgpt.com/g/g-69cf62d598fc8191baca75a45665b0e1-ekonotetasaiensuxue-ke-lu-xiu-deng-lu-zhi-yuan">
-      <img src="chatbot.png" alt="chatbot image">
-      <div class="content">
-        <h2>エコノデータサイエンス学科 履修登録支援チャットボット</h2>
-        <p>2026年度1年次生用</p>
-      </div>
-    </a>
-    <a class="tile" href="https://okana2ki.github.io/facial_exp/">
-      <img src="facial-exp-recognition.png" alt="facial expression recognition image">
-      <div class="content">
-        <h2>顔の表情認識</h2>
-        <p>Teachable Machineで学習しました；学習データはFER-2013の一部を使用</p>
-      </div>
-    </a>
-  </div>
+  <main class="page-intro">
+    <img src="../facial-exp-recognition.png" alt="顔の表情認識画像">
+    <div class="intro-text">
+      <h2><a href="https://teachablemachine.withgoogle.com/models/bOpabf_cP/">顔の表情認識</a></h2>
+      <p><a href="https://teachablemachine.withgoogle.com/">Teachable Machine</a>で学習しました。学習データは<a href="https://www.kaggle.com/datasets/msambare/fer2013">FER-2013</a>の一部を使用。trainからhappy, sadを各500枚使用（85％: 学習, 15％: テスト）。validationからhappy, sad各100枚も合わせて、<a href="images.zip" download>ここ</a>からダウンロードできます。</p>
+    </div>
+  </main>
   <footer><p>&copy; 2025 Oka Natsuki. All rights reserved.</p></footer>
 </body>
 </html>
