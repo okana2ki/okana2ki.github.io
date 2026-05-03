@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生成AI講習シリーズ | みんなの生成AIワークショップ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #2575fc;
+      --secondary: #6a11cb;
+      --grad: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      --grad-text: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+      --bg: #ffffff;
+      --bg2: #f8faff;
+      --bg3: #eef3ff;
+      --text: #1a1a2e;
+      --text2: #4a5568;
+      --text3: #718096;
+      --card-bg: #ffffff;
+      --card-border: rgba(37,117,252,0.15);
+      --glow: 0 0 30px rgba(37,117,252,0.25);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Roboto', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 32px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(37,117,252,0.1);
+      transition: var(--transition);
+    }
+    .navbar.scrolled { padding: 10px 32px; box-shadow: 0 2px 20px rgba(37,117,252,0.1); }
+    .nav-logo {
+      font-weight: 900; font-size: 1.1rem;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; text-decoration: none; white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 8px; align-items: center; list-style: none; }
+    .nav-links a {
+      color: var(--text2); text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 20px; transition: var(--transition);
+    }
+    .nav-links a:hover { background: var(--bg3); color: var(--primary); }
+    .nav-cta {
+      background: var(--grad) !important; color: #fff !important;
+      font-weight: 700 !important; padding: 8px 18px !important;
+      box-shadow: 0 4px 14px rgba(37,117,252,0.35) !important;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,117,252,0.45) !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { width: 24px; height: 2px; background: var(--primary); border-radius: 2px; transition: var(--transition); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 100px 24px 60px; text-align: center; overflow: hidden;
+      background: radial-gradient(ellipse at 50% 0%, rgba(106,17,203,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(37,117,252,0.06) 0%, transparent 50%),
+                  #fff;
+    }
+    #particles-canvas {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 1px solid rgba(37,117,252,0.25);
+      color: var(--primary); font-size: 0.8rem; font-weight: 700;
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 24px;
+      animation: fadeInDown 0.6s ease both;
+    }
+    .hero-badge .pulse {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.5);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.15;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.7s ease 0.1s both;
+    }
+    .hero h1 .grad-text {
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text2); line-height: 1.7;
+      max-width: 580px; margin: 0 auto 36px;
+      animation: fadeInUp 0.7s ease 0.2s both;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      animation: fadeInUp 0.7s ease 0.3s both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; font-size: 1rem; font-weight: 700;
+      text-decoration: none; transition: var(--transition); cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--grad); color: #fff;
+      box-shadow: 0 4px 20px rgba(37,117,252,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,117,252,0.45); }
+    .btn-secondary {
+      background: #fff; color: var(--primary);
+      border: 2px solid rgba(37,117,252,0.3);
+    }
+    .btn-secondary:hover { border-color: var(--primary); background: var(--bg3); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; gap: 40px; justify-content: center; margin-top: 56px; flex-wrap: wrap;
+      animation: fadeInUp 0.7s ease 0.4s both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 2.2rem; font-weight: 900;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block; line-height: 1;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text3); margin-top: 4px; }
+    .hero-scroll {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--text3); font-size: 0.75rem; z-index: 1;
+      animation: fadeIn 1s ease 1s both;
+    }
+    .scroll-line {
+      width: 1px; height: 40px; background: linear-gradient(to bottom, var(--primary), transparent);
+      animation: scrollAnim 1.5s ease-in-out infinite;
+    }
+    @keyframes scrollAnim { 0%,100%{opacity:0.3;transform:scaleY(0.7);} 50%{opacity:1;transform:scaleY(1);} }
+
+    /* ── NEXT SESSION BANNER ── */
+    .next-section {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, rgba(106,17,203,0.04) 0%, rgba(37,117,252,0.04) 100%);
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900;
+      margin-bottom: 40px; line-height: 1.3;
+    }
+    .next-card {
+      max-width: 820px; margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px 44px;
+      box-shadow: var(--glow), 0 2px 40px rgba(0,0,0,0.06);
+      position: relative; overflow: hidden;
+      transition: var(--transition);
+    }
+    .next-card:hover { transform: translateY(-4px); box-shadow: 0 0 50px rgba(37,117,252,0.3), 0 8px 48px rgba(0,0,0,0.08); }
+    .next-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--grad);
+    }
+    .next-card-inner { display: flex; gap: 40px; align-items: flex-start; }
+    .next-number {
+      flex-shrink: 0; width: 72px; height: 72px;
+      background: var(--grad); border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.5rem; font-weight: 900;
+      box-shadow: 0 8px 24px rgba(37,117,252,0.4);
+    }
+    .next-info { flex: 1; }
+    .next-session-num {
+      font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .next-session-num::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary);
+    }
+    .next-title {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem); font-weight: 900; line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .next-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg3); border: 1px solid rgba(37,117,252,0.15);
+      color: var(--text2); font-size: 0.82rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 20px;
+    }
+    .meta-chip svg { flex-shrink: 0; }
+    .next-free-badge {
+      display: inline-block; background: linear-gradient(135deg,#dcfce7,#bbf7d0);
+      color: #166534; font-size: 0.78rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
+      border: 1px solid #86efac;
+    }
+    .countdown-box {
+      background: var(--bg2); border-radius: 14px; padding: 18px 22px;
+      border: 1px solid rgba(37,117,252,0.1);
+    }
+    .countdown-label { font-size: 0.75rem; color: var(--text3); margin-bottom: 10px; font-weight: 500; }
+    .countdown-digits { display: flex; gap: 10px; align-items: center; }
+    .cd-unit { text-align: center; }
+    .cd-num {
+      font-size: 1.8rem; font-weight: 900; line-height: 1;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block;
+      min-width: 44px;
+    }
+    .cd-label { font-size: 0.65rem; color: var(--text3); margin-top: 2px; }
+    .cd-sep { font-size: 1.4rem; font-weight: 900; color: var(--primary); opacity: 0.5; margin-top: -8px; }
+
+    /* ── ARCHIVE ── */
+    .archive-section { padding: 80px 24px; background: var(--bg); }
+    .archive-wrap { max-width: 1000px; margin: 0 auto; }
+
+    /* Search + Filter */
+    .search-bar {
+      display: flex; gap: 12px; margin-bottom: 24px; align-items: center;
+    }
+    .search-input-wrap {
+      flex: 1; position: relative;
+    }
+    .search-input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text3); }
+    .search-input {
+      width: 100%; padding: 12px 16px 12px 44px;
+      border: 1.5px solid rgba(37,117,252,0.2); border-radius: 12px;
+      font-family: inherit; font-size: 0.95rem; color: var(--text);
+      background: #fff; transition: var(--transition);
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,117,252,0.12); }
+    .filter-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .tag-btn {
+      padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+      border: 1.5px solid rgba(37,117,252,0.2); background: #fff; color: var(--text2);
+      cursor: pointer; transition: var(--transition);
+    }
+    .tag-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--bg3); }
+    .tag-btn.active { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 4px 12px rgba(37,117,252,0.3); }
+
+    /* Session Cards */
+    .sessions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+    .session-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius); padding: 24px;
+      transition: var(--transition); cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .session-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--glow), 0 8px 32px rgba(0,0,0,0.08);
+      border-color: rgba(37,117,252,0.35);
+    }
+    .session-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(37,117,252,0.06) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .session-card:hover::after { opacity: 1; }
+    .session-num {
+      font-size: 0.75rem; font-weight: 700; color: var(--primary);
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .session-num .num-badge {
+      background: var(--grad); color: #fff;
+      padding: 2px 10px; border-radius: 10px; font-size: 0.72rem;
+    }
+    .session-title {
+      font-size: 1rem; font-weight: 700; line-height: 1.45; margin-bottom: 12px;
+    }
+    .session-date { font-size: 0.8rem; color: var(--text3); margin-bottom: 14px; }
+    .session-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .session-tag {
+      font-size: 0.72rem; padding: 3px 10px; border-radius: 10px;
+      background: var(--bg3); color: var(--primary); font-weight: 600;
+    }
+    .session-links { display: flex; gap: 8px; }
+    .session-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; font-weight: 700; color: var(--primary);
+      padding: 6px 14px; border-radius: 8px;
+      border: 1.5px solid rgba(37,117,252,0.25);
+      text-decoration: none; transition: var(--transition);
+      background: #fff;
+    }
+    .session-link:hover { background: var(--primary); color: #fff; border-color: transparent; }
+    .no-results { text-align: center; padding: 40px; color: var(--text3); font-size: 0.95rem; display: none; }
+
+    /* ── INSTRUCTOR ── */
+    .instructor-section { padding: 80px 24px; background: var(--bg2); }
+    .instructor-card {
+      max-width: 680px; margin: 0 auto;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 24px; padding: 36px 40px;
+      display: flex; gap: 32px; align-items: flex-start;
+      box-shadow: 0 2px 24px rgba(37,117,252,0.08);
+      transition: var(--transition);
+    }
+    .instructor-card:hover { box-shadow: var(--glow); transform: translateY(-2px); }
+    .instructor-avatar {
+      flex-shrink: 0; width: 100px; height: 100px; border-radius: 50%;
+      overflow: hidden; border: 3px solid transparent;
+      background: var(--grad); padding: 3px;
+    }
+    .instructor-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+    .instructor-info { flex: 1; }
+    .instructor-role { font-size: 0.78rem; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+    .instructor-name { font-size: 1.4rem; font-weight: 900; margin-bottom: 4px; }
+    .instructor-name-en { font-size: 0.9rem; color: var(--text3); margin-bottom: 14px; }
+    .instructor-bio { font-size: 0.9rem; color: var(--text2); line-height: 1.7; margin-bottom: 18px; }
+    .instructor-links { display: flex; gap: 10px; }
+    .icon-link {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--bg3); border: 1px solid rgba(37,117,252,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary); text-decoration: none; transition: var(--transition);
+      font-size: 0.85rem; font-weight: 700;
+    }
+    .icon-link:hover { background: var(--primary); color: #fff; transform: scale(1.1); }
+
+    /* ── VENUE ── */
+    .venue-section { padding: 80px 24px; background: var(--bg); }
+    .venue-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 24px; padding: 36px 40px;
+      box-shadow: 0 2px 24px rgba(37,117,252,0.08);
+      transition: var(--transition);
+      display: flex; gap: 36px; align-items: flex-start;
+    }
+    .venue-card:hover { box-shadow: var(--glow); transform: translateY(-2px); }
+    .venue-info { flex: 1; min-width: 0; }
+    .venue-name {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.1rem; font-weight: 900; color: var(--primary);
+      margin-bottom: 20px; line-height: 1.4;
+    }
+    .venue-note-list { display: flex; flex-direction: column; gap: 12px; }
+    .venue-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.88rem; color: var(--text2); line-height: 1.65;
+      background: var(--bg2); border-radius: 10px; padding: 10px 14px;
+      border: 1px solid rgba(37,117,252,0.08);
+    }
+    .venue-note-icon { flex-shrink: 0; font-size: 1rem; margin-top: 1px; }
+    .venue-map { flex-shrink: 0; width: 340px; }
+    .venue-map img {
+      width: 100%; border-radius: 14px;
+      border: 1px solid rgba(37,117,252,0.12);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      display: block;
+    }
+    .venue-map-label {
+      font-size: 0.72rem; color: var(--text3); text-align: center;
+      margin-top: 6px;
+    }
+    @media (max-width: 768px) {
+      .venue-card { flex-direction: column; padding: 24px 20px; }
+      .venue-map { width: 100%; }
+    }
+
+    /* ── FAQ ── */
+    .faq-section { padding: 80px 24px; background: var(--bg2); }
+    .faq-wrap { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid rgba(37,117,252,0.12);
+      border-radius: var(--radius); margin-bottom: 12px;
+      overflow: hidden; transition: var(--transition);
+      background: var(--card-bg);
+    }
+    .faq-item:hover { border-color: rgba(37,117,252,0.3); }
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; cursor: pointer;
+      font-size: 0.98rem; font-weight: 700; gap: 16px;
+    }
+    .faq-question-text { flex: 1; }
+    .faq-icon {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--bg3); display: flex; align-items: center; justify-content: center;
+      color: var(--primary); font-size: 1.1rem; transition: var(--transition);
+    }
+    .faq-item.open .faq-icon { background: var(--primary); color: #fff; transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-answer-inner {
+      padding: 0 24px 20px; font-size: 0.9rem; color: var(--text2); line-height: 1.75;
+    }
+
+    /* ── CONTACT / SNS ── */
+    .contact-section { padding: 80px 24px; background: var(--bg); }
+    .contact-wrap { max-width: 680px; margin: 0 auto; text-align: center; }
+    .contact-section .section-title { margin-bottom: 16px; }
+    .contact-sub { font-size: 0.95rem; color: var(--text2); line-height: 1.7; margin-bottom: 36px; }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+    .contact-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius); padding: 22px 16px; text-align: center;
+      text-decoration: none; color: var(--text);
+      transition: var(--transition); display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .contact-card:hover { transform: translateY(-4px); box-shadow: var(--glow); border-color: rgba(37,117,252,0.4); }
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--grad); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff;
+      box-shadow: 0 4px 14px rgba(37,117,252,0.35);
+    }
+    .contact-label { font-size: 0.88rem; font-weight: 700; }
+    .contact-desc { font-size: 0.75rem; color: var(--text3); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: linear-gradient(135deg, #0f0c29, #1a1040, #0f0c29);
+      color: rgba(255,255,255,0.7); padding: 48px 24px 28px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-size: 1.2rem; font-weight: 900;
+      background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 10px;
+    }
+    .footer-sub { font-size: 0.82rem; margin-bottom: 24px; opacity: 0.6; }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; transition: var(--transition); }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 0.75rem; opacity: 0.4; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .navbar { padding: 12px 20px; }
+      .nav-links { display: none; flex-direction: column; position: fixed; inset: 64px 0 auto;
+        background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
+        padding: 20px; border-bottom: 1px solid rgba(37,117,252,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1); z-index: 999; }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: flex; }
+      .next-card { padding: 24px 20px; }
+      .next-card-inner { flex-direction: column; gap: 20px; }
+      .hero-stats { gap: 24px; }
+      .instructor-card { flex-direction: column; text-align: center; }
+      .instructor-links { justify-content: center; }
+      .sessions-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.9rem; }
+      .next-card { padding: 20px 18px; }
+      .countdown-digits { gap: 6px; }
+      .cd-num { font-size: 1.4rem; min-width: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">みんなの生成AI</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#next">次回</a></li>
+    <li><a href="#archive">アーカイブ</a></li>
+    <li><a href="#instructor">講師</a></li>
+    <li><a href="#venue">会場</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">お問い合わせ</a></li>
+    <li><a href="https://sites.google.com/view/genai4e/workshop" class="nav-cta" target="_blank">ワークショップへ →</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <canvas id="particles-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse"></span>
+      毎週木曜開催中 — 無料・予約不要
+    </div>
+    <h1>
+      <span class="grad-text">生成AI講習シリーズ</span><br>
+      一緒に学ぼう、使いこなそう
+    </h1>
+    <p class="hero-sub">
+      みんなの生成AIワークショップの一環として、<br>
+      最新の生成AI活用術を毎週木曜日にお届けします。<br>
+      学内外どなたでも、関心のある回だけご参加いただけます。
+    </p>
+    <div class="hero-actions">
+      <a href="#next" class="btn btn-primary">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        次回の講習会を見る
+      </a>
+      <a href="#archive" class="btn btn-secondary">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h6"/></svg>
+        過去の資料を見る
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num" id="count-sessions">3</span>
+        <div class="stat-label">開催回数（2026年度）</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <div class="stat-label">1回あたりの開催数</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">40<small style="font-size:1.2rem">分</small></span>
+        <div class="stat-label">講習時間（14:00回）</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">¥0</span>
+        <div class="stat-label">参加費</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>スクロール</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── NEXT SESSION ── -->
+<section class="next-section" id="next">
+  <div style="max-width:820px;margin:0 auto;" class="reveal">
+    <div class="section-label">NEXT SESSION</div>
+    <h2 class="section-title">次回の講習会</h2>
+    <div id="next-session-container"></div>
+  </div>
+</section>
+
+<!-- ── ARCHIVE ── -->
+<section class="archive-section" id="archive">
+  <div class="archive-wrap">
+    <div class="reveal">
+      <div class="section-label">ARCHIVE</div>
+      <h2 class="section-title">過去の講習会</h2>
+    </div>
+    <div class="reveal" style="transition-delay:0.1s">
+      <div class="search-bar">
+        <div class="search-input-wrap">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" class="search-input" id="searchInput" placeholder="キーワードで検索… （例：ChatGPT、Gemini、スライド）" oninput="filterSessions()">
+        </div>
+      </div>
+      <div class="filter-tags" id="filterTags">
+        <button class="tag-btn active" data-tag="all" onclick="setTag('all',this)">すべて</button>
+        <button class="tag-btn" data-tag="ChatGPT" onclick="setTag('ChatGPT',this)">ChatGPT</button>
+        <button class="tag-btn" data-tag="Gemini" onclick="setTag('Gemini',this)">Gemini</button>
+        <button class="tag-btn" data-tag="バイブコーディング" onclick="setTag('バイブコーディング',this)">バイブコーディング</button>
+        <button class="tag-btn" data-tag="スライド" onclick="setTag('スライド',this)">スライド</button>
+        <button class="tag-btn" data-tag="チャットボット" onclick="setTag('チャットボット',this)">チャットボット</button>
+        <button class="tag-btn" data-tag="データ分析" onclick="setTag('データ分析',this)">データ分析</button>
+      </div>
+    </div>
+    <div class="sessions-grid reveal" id="sessionsGrid" style="transition-delay:0.2s">
+      <!-- Populated by JS -->
+    </div>
+    <div class="no-results" id="noResults">該当する講習会が見つかりませんでした。</div>
+  </div>
+</section>
+
+<!-- ── INSTRUCTOR ── -->
+<section class="instructor-section" id="instructor">
+  <div style="max-width:680px;margin:0 auto;" class="reveal">
+    <div class="section-label" style="text-align:center;">INSTRUCTOR</div>
+    <h2 class="section-title" style="text-align:center;">講師・主催者</h2>
+    <div class="instructor-card">
+      <div class="instructor-avatar">
+        <img src="Oka2015.JPG" alt="岡 夏樹">
+      </div>
+      <div class="instructor-info">
+        <div class="instructor-role">みんなの生成AI研究所 主催</div>
+        <div class="instructor-name">岡 夏樹</div>
+        <div class="instructor-name-en">Oka Natsuki</div>
+        <p class="instructor-bio">
+          みんなが生成AIを使いこなせて人生を楽しめる社会をめざして活動中。
+          大学でデータサイエンス・情報倫理などを担当しながら、
+          「生成AI＋デザイン思考」による課題解決ワークショップを毎週開催しています。
+        </p>
+        <div class="instructor-links">
+          <a class="icon-link" href="https://okana2ki.wordpress.com/" target="_blank" title="ブログ">Blog</a>
+          <a class="icon-link" href="https://sites.google.com/view/genai4e/" target="_blank" title="研究所サイト">AI研</a>
+          <a class="icon-link" href="https://okana2ki.github.io/" target="_blank" title="GitHub Pages">HP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VENUE ── -->
+<section class="venue-section" id="venue">
+  <div style="max-width:820px;margin:0 auto;" class="reveal">
+    <div class="section-label">VENUE</div>
+    <h2 class="section-title">会場案内</h2>
+    <div class="venue-card">
+      <div class="venue-info">
+        <div class="venue-name">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          宮崎産業経営大学　5号館2階 5203教室
+        </div>
+        <div class="venue-note-list">
+          <div class="venue-note">
+            <span class="venue-note-icon">🅿️</span>
+            <span>正門から第一・第二駐車場へは乗り入れ不可。自動二輪車・自転車は正門から乗り入れ可。</span>
+          </div>
+          <div class="venue-note">
+            <span class="venue-note-icon">🚶</span>
+            <span>5号館はキャンパス南側。4号館のさらに南、サークル棟の西隣です。</span>
+          </div>
+          <div class="venue-note">
+            <span class="venue-note-icon">🗺️</span>
+            <span>産経大入口交差点から正門を入り、構内通路を南へお進みください。</span>
+          </div>
+        </div>
+      </div>
+      <div class="venue-map">
+        <img src="campus-map.png" alt="宮崎産業経営大学 構内建物配置・駐車場案内図">
+        <div class="venue-map-label">構内建物配置・駐車場案内図</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq-section" id="faq">
+  <div class="faq-wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">よくある質問</h2>
+    </div>
+    <div id="faqList" class="reveal" style="transition-delay:0.1s;margin-top:8px;"></div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact-section" id="contact">
+  <div class="contact-wrap reveal">
+    <div class="section-label">CONTACT</div>
+    <h2 class="section-title">お問い合わせ・SNS</h2>
+    <p class="contact-sub">
+      講習会への参加、資料の活用、コラボレーションなど、<br>
+      お気軽にご連絡ください。
+    </p>
+    <div class="contact-grid">
+      <a class="contact-card" href="https://sites.google.com/view/genai4e/" target="_blank">
+        <div class="contact-icon">🌐</div>
+        <div class="contact-label">みんなの生成AI研究所</div>
+        <div class="contact-desc">メインサイト</div>
+      </a>
+      <a class="contact-card" href="https://sites.google.com/view/genai4e/workshop" target="_blank">
+        <div class="contact-icon">🎓</div>
+        <div class="contact-label">ワークショップ情報</div>
+        <div class="contact-desc">日程・内容詳細</div>
+      </a>
+      <a class="contact-card" href="https://okana2ki.wordpress.com/jp/#%E8%B3%AA%E5%95%8F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0-1" target="_blank">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-label">お問い合わせフォーム</div>
+        <div class="contact-desc">質問・お問い合わせ</div>
+      </a>
+      <a class="contact-card" href="https://okana2ki.wordpress.com/" target="_blank">
+        <div class="contact-icon">📝</div>
+        <div class="contact-label">WordPress ブログ</div>
+        <div class="contact-desc">活動報告・エッセイ</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-logo">みんなの生成AI講習シリーズ</div>
+  <div class="footer-sub">みんなが生成AIを使いこなせて人生を楽しめる社会をめざします</div>
+  <div class="footer-links">
+    <a href="index.html">ホーム</a>
+    <a href="https://sites.google.com/view/genai4e/" target="_blank">みんなの生成AI研究所</a>
+    <a href="https://sites.google.com/view/genai4e/workshop" target="_blank">ワークショップ</a>
+    <a href="https://okana2ki.wordpress.com/" target="_blank">About Me</a>
+  </div>
+  <div class="footer-copy">© 2026 Oka Natsuki. All rights reserved.</div>
+</footer>
+
+<script>
+// ── DATA ──
+const SESSIONS = [
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ★ 毎週ここに新しい回を「先頭に」追加するだけ！
+  //   → 自動的に「次回」に表示、前の回はアーカイブへ移動
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  {
+    num: 4,
+    title: '生成AI支援でお手軽HP構築',
+    date: '2026-05-07',           // ← YYYY-MM-DD形式で入力
+    dateLabel: '2026年5月7日（木）',
+    tags: ['HP構築', 'バイブコーディング'],
+    googleSite: null,
+    speakerDeck: null,
+    isNext: true,                  // ← 先頭の回は自動でtrueになるが明示してもOK
+  },
+  {
+    num: 3,
+    title: '図表の理解と生成：グラフや表を読んでスライドにまとめてもらう',
+    date: '2026-04-23',
+    dateLabel: '2026年4月23日（木）',
+    tags: ['ChatGPT', 'スライド', 'データ分析'],
+    googleSite: 'https://sites.google.com/view/genai4e/%E4%BD%BF%E3%81%84%E3%81%93%E3%81%AA%E3%81%97%E4%BA%8B%E4%BE%8B/%E5%9B%B3%E8%A1%A8%E3%81%AE%E7%90%86%E8%A7%A3%E3%81%A8%E7%94%9F%E6%88%90',
+    speakerDeck: null,
+  },
+  {
+    num: 2,
+    title: 'あなたの用途に合わせて生成AIをカスタマイズ：自分専用のチャットボットをGemで作ろう',
+    date: '2026-04-16',
+    dateLabel: '2026年4月16日（木）',
+    tags: ['Gemini', 'チャットボット'],
+    googleSite: 'https://sites.google.com/view/genai4e/%E4%BD%BF%E3%81%84%E3%81%93%E3%81%AA%E3%81%97%E4%BA%8B%E4%BE%8B/gem',
+    speakerDeck: null,
+  },
+  {
+    num: '2026 Kickoff',
+    title: 'スマホでバイブコーディング：大学生活の小さな困りごとを解決するミニツールを5分で構築',
+    date: '2026-04-09',
+    dateLabel: '2026年4月9日（木）',
+    tags: ['バイブコーディング', 'スライド'],
+    googleSite: null,
+    speakerDeck: 'https://speakerdeck.com/okana2ki/gai4ews20260409',
+  },
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 以下は自動処理 — 変更不要
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// 先頭 = 次回、残り = 過去
+const nextSession = SESSIONS[0];
+const pastSessions = SESSIONS.slice(1);
+
+// ── 次回セクション 自動生成 ──
+function renderNextSession(s) {
+  const svgClock = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`;
+  const svgPin   = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  const svgPpl   = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>`;
+  const links = [
+    s.googleSite  ? `<a class="session-link" href="${s.googleSite}"  target="_blank">🌐 資料サイト</a>` : '',
+    s.speakerDeck ? `<a class="session-link" href="${s.speakerDeck}" target="_blank">📊 スライド</a>`   : '',
+  ].filter(Boolean).join('');
+
+  document.getElementById('next-session-container').innerHTML = `
+    <div class="next-card">
+      <div class="next-card-inner">
+        <div class="next-number">${s.num}</div>
+        <div class="next-info">
+          <div class="next-session-num">第${s.num}回 — ${s.dateLabel}</div>
+          <h3 class="next-title">「${s.title}」</h3>
+          <div class="next-free-badge">✓ 無料・予約不要・学内外どなたでも参加OK</div>
+          <div class="next-meta">
+            <span class="meta-chip">${svgClock} 14:00〜14:40（第1回）</span>
+            <span class="meta-chip">${svgClock} 16:30〜17:00（第2回）</span>
+            <span class="meta-chip">${svgPin} 宮崎産業経営大学 5号館2階 5203教室</span>
+            <span class="meta-chip">${svgPpl} 学内外誰でも歓迎</span>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-label">開催まであと</div>
+            <div class="countdown-digits">
+              <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><div class="cd-label">日</div></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><div class="cd-label">時間</div></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><div class="cd-label">分</div></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><div class="cd-label">秒</div></div>
+            </div>
+          </div>
+          ${links ? `<div class="session-links" style="margin-top:16px;">${links}</div>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+renderNextSession(nextSession);
+
+// ── アーカイブ ──
+let activeTag = 'all';
+
+function renderSessions(list) {
+  const grid = document.getElementById('sessionsGrid');
+  const noRes = document.getElementById('noResults');
+  if (!list.length) { grid.innerHTML = ''; noRes.style.display = 'block'; return; }
+  noRes.style.display = 'none';
+  grid.innerHTML = list.map(s => `
+    <div class="session-card" onmousemove="cardGlow(event,this)" onmouseleave="clearGlow(this)"
+         data-tags="${s.tags.join(',')}" data-title="${s.title}">
+      <div class="session-num">
+        <span class="num-badge">第${s.num}回</span>
+        ${s.dateLabel}
+      </div>
+      <div class="session-title">${s.title}</div>
+      <div class="session-tags">
+        ${s.tags.map(t=>`<span class="session-tag">${t}</span>`).join('')}
+      </div>
+      <div class="session-links">
+        ${s.googleSite  ? `<a class="session-link" href="${s.googleSite}"  target="_blank">🌐 資料サイト</a>` : ''}
+        ${s.speakerDeck ? `<a class="session-link" href="${s.speakerDeck}" target="_blank">📊 スライド</a>`   : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterSessions() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let list = pastSessions;
+  if (activeTag !== 'all') list = list.filter(s => s.tags.includes(activeTag));
+  if (q) list = list.filter(s => s.title.toLowerCase().includes(q) || s.tags.some(t=>t.toLowerCase().includes(q)));
+  renderSessions(list);
+}
+
+function setTag(tag, btn) {
+  activeTag = tag;
+  document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterSessions();
+}
+
+// タグボタンを動的に生成
+(function buildTagButtons() {
+  const allTags = [...new Set(pastSessions.flatMap(s => s.tags))];
+  const container = document.getElementById('filterTags');
+  container.innerHTML = `<button class="tag-btn active" data-tag="all" onclick="setTag('all',this)">すべて</button>`
+    + allTags.map(t => `<button class="tag-btn" data-tag="${t}" onclick="setTag('${t}',this)">${t}</button>`).join('');
+})();
+
+renderSessions(pastSessions);
+
+// Card glow effect
+function cardGlow(e, el) {
+  const r = el.getBoundingClientRect();
+  const x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
+  const y = ((e.clientY - r.top) / r.height * 100).toFixed(1);
+  el.style.setProperty('--mx', x + '%');
+  el.style.setProperty('--my', y + '%');
+}
+function clearGlow(el) {
+  el.style.setProperty('--mx', '50%');
+  el.style.setProperty('--my', '50%');
+}
+
+// ── FAQ DATA ──
+const FAQS = [
+  { q: '参加するのに申し込みは必要ですか？', a: '不要です。毎週木曜日に2回（14:00〜14:40 と 16:30〜17:00）開催しています。気になる回に直接お越しください。' },
+  { q: '参加費はかかりますか？', a: '完全無料です。学内外どなたでもご参加いただけます。' },
+  { q: '毎回参加しないといけませんか？', a: 'いいえ。各回は独立したテーマで開催していますので、関心のある回だけご参加いただけます。' },
+  { q: 'パソコンやスマホは必要ですか？', a: '基本的にはご自身のデバイスがあると実習できて便利ですが、見学だけでも大歓迎です。スマホ1台あれば参加できる回も多いです。' },
+  { q: '過去の回の資料はどこで見られますか？', a: 'このページの「過去の講習会」セクション、またはGoogleサイト（みんなの生成AI研究所）に掲載されています。SpeakerDeckにスライドを公開している回もあります。' },
+  { q: '生成AIを使ったことがないのですが参加できますか？', a: 'もちろんです！ まったくの初心者の方も歓迎しています。必要な知識は講習の中で説明しますので、事前準備は不要です。' },
+];
+
+const faqList = document.getElementById('faqList');
+faqList.innerHTML = FAQS.map((f, i) => `
+  <div class="faq-item" id="faq-${i}">
+    <div class="faq-question" onclick="toggleFaq(${i})">
+      <div class="faq-question-text">${f.q}</div>
+      <div class="faq-icon">+</div>
+    </div>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">${f.a}</div>
+    </div>
+  </div>
+`).join('');
+
+function toggleFaq(i) {
+  const item = document.getElementById('faq-' + i);
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const target = new Date(nextSession.date + 'T14:00:00+09:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = '00'; });
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  const set = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = String(v).padStart(2,'0'); };
+  set('cd-d', d); set('cd-h', h); set('cd-m', m); set('cd-s', s);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── PARTICLE SYSTEM ──
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], mouse = { x: null, y: null };
+  const COLORS = ['rgba(37,117,252,', 'rgba(106,17,203,', 'rgba(96,165,250,', 'rgba(167,139,250,'];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H : H + 10;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = -Math.random() * 0.6 - 0.2;
+      this.r = Math.random() * 2.5 + 0.5;
+      this.alpha = Math.random() * 0.5 + 0.1;
+      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.life = 1;
+      this.decay = Math.random() * 0.003 + 0.001;
+    }
+    update() {
+      if (mouse.x !== null) {
+        const dx = mouse.x - this.x, dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          this.vx -= dx / dist * 0.05;
+          this.vy -= dy / dist * 0.05;
+        }
+      }
+      this.x += this.vx; this.y += this.vy;
+      this.vx *= 0.99; this.vy *= 0.99;
+      this.life -= this.decay;
+      if (this.life <= 0 || this.y < -10) this.reset(false);
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.color + (this.alpha * this.life) + ')';
+      ctx.fill();
+    }
+  }
+
+  // Network lines
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i+1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          const alpha = (1 - d/100) * 0.12;
+          ctx.strokeStyle = `rgba(37,117,252,${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    drawLines();
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  });
+  canvas.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+})();
+
+// ── NUMBER COUNTER ANIMATION ──
+function animateCount(el, from, to, dur) {
+  let start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / dur, 1);
+    el.textContent = Math.round(from + (to - from) * p);
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(document.getElementById('count-sessions'), 0, 3, 800);
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+const el = document.getElementById('count-sessions');
+if (el) statsObserver.observe(el);
+</script>
+</body>
+</html>
