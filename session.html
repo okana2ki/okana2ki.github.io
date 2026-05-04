@@ -10,9 +10,9 @@
 
     :root {
       --primary: #2575fc;
-      --secondary: #0a2a6e;
-      --grad: linear-gradient(135deg, #0a2a6e 0%, #2575fc 100%);
-      --grad-text: linear-gradient(135deg, #6ea8fe 0%, #93c5fd 100%);
+      --secondary: #1a56db;
+      --grad: linear-gradient(135deg, #1a56db 0%, #2575fc 100%);
+      --grad-text: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
       --bg: #ffffff;
       --bg2: #f8faff;
       --bg3: #eef3ff;
@@ -152,17 +152,7 @@
       background-clip: text; display: block; line-height: 1;
     }
     .stat-label { font-size: 0.8rem; color: var(--text3); margin-top: 4px; }
-    .hero-scroll {
-      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      color: var(--text3); font-size: 0.75rem; z-index: 1;
-      animation: fadeIn 1s ease 1s both;
-    }
-    .scroll-line {
-      width: 1px; height: 40px; background: linear-gradient(to bottom, var(--primary), transparent);
-      animation: scrollAnim 1.5s ease-in-out infinite;
-    }
-    @keyframes scrollAnim { 0%,100%{opacity:0.3;transform:scaleY(0.7);} 50%{opacity:1;transform:scaleY(1);} }
+    .hero-scroll { display: none; }
 
     /* ── NEXT SESSION BANNER ── */
     .next-section {
@@ -961,15 +951,16 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   const hero  = document.getElementById('home');
   const ctx = canvas.getContext('2d');
   let W, H, particles = [], mouse = { x: null, y: null };
-  const COLORS = ['rgba(37,117,252,', 'rgba(10,42,110,', 'rgba(96,165,250,', 'rgba(59,130,246,'];
+  const COLORS = ['rgba(37,117,252,', 'rgba(26,86,219,', 'rgba(96,165,250,', 'rgba(59,130,246,'];
 
   function resize() {
-    const rect = hero.getBoundingClientRect();
-    W = canvas.width = rect.width;
-    H = canvas.height = rect.height;
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
   }
-  resize();
+  // DOMContentLoaded後・リサイズ時に再計測
+  window.addEventListener('load', resize);
   window.addEventListener('resize', resize);
+  resize();
 
   class Particle {
     constructor() { this.reset(true); }
@@ -978,11 +969,11 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
       this.y = init ? Math.random() * H : H + 10;
       this.vx = (Math.random() - 0.5) * 0.4;
       this.vy = -Math.random() * 0.6 - 0.2;
-      this.r = Math.random() * 2.5 + 0.5;
-      this.alpha = Math.random() * 0.5 + 0.1;
+      this.r = Math.random() * 3 + 1;
+      this.alpha = Math.random() * 0.6 + 0.3;
       this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
       this.life = 1;
-      this.decay = Math.random() * 0.003 + 0.001;
+      this.decay = Math.random() * 0.0008 + 0.0003;
     }
     update() {
       if (mouse.x !== null) {
@@ -1018,8 +1009,8 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           const alpha = (1 - d/100) * 0.12;
-          ctx.strokeStyle = `rgba(37,117,252,${alpha})`;
-          ctx.lineWidth = 0.5;
+          ctx.strokeStyle = `rgba(37,117,252,${alpha * 2})`;
+          ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
