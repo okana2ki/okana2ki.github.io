@@ -73,16 +73,13 @@
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 100px 24px 60px; text-align: center; overflow: hidden;
-      background: #fff;
+      background: radial-gradient(ellipse at 50% 0%, rgba(106,17,203,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(37,117,252,0.06) 0%, transparent 50%),
+                  #fff;
     }
-    #hero-video {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: center; z-index: 0;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0; z-index: 1;
-      background: rgba(230, 233, 238, 0.9);
-      pointer-events: none;
+    #particles-canvas {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      width: 100%; height: 100%;
     }
     .hero-content { position: relative; z-index: 1; max-width: 800px; }
     .hero-badge {
@@ -122,7 +119,7 @@
       background-clip: text;
     }
     .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text); line-height: 1.7;
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text2); line-height: 1.7;
       max-width: 580px; margin: 0 auto 36px;
       animation: fadeInUp 0.7s ease 0.2s both;
     }
@@ -155,7 +152,7 @@
       background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text; display: block; line-height: 1;
     }
-    .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
+    .stat-label { font-size: 0.8rem; color: var(--text3); margin-top: 4px; }
     .hero-scroll { display: none; }
 
     /* ── NEXT SESSION BANNER ── */
@@ -511,9 +508,7 @@
 
 <!-- ── HERO ── -->
 <section class="hero" id="home">
-  <video id="hero-video" autoplay muted loop playsinline>
-    <source src="hero.mp4" type="video/mp4">
-  </video>
+  <canvas id="particles-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-badge">
       <span class="pulse"></span>
@@ -995,12 +990,96 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ── BACKGROUND VIDEO ──
-// ビデオの自動再生を確保（ブラウザのオートプレイ制限対応）
-const videoEl = document.getElementById('hero-video');
-if (videoEl) {
-  videoEl.play().catch(e => console.log('ビデオ自動再生:', e.message));
-}
+// ── PARTICLE SYSTEM ──
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const hero  = document.getElementById('home');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], mouse = { x: null, y: null };
+  const COLORS = ['rgba(37,117,252,', 'rgba(26,86,219,', 'rgba(96,165,250,', 'rgba(59,130,246,'];
+
+  function resize() {
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+  // DOMContentLoaded後・リサイズ時に再計測
+  window.addEventListener('load', resize);
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H : H + 10;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = -Math.random() * 0.6 - 0.2;
+      this.r = Math.random() * 3 + 1;
+      this.alpha = Math.random() * 0.6 + 0.3;
+      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.life = 1;
+      this.decay = Math.random() * 0.0008 + 0.0003;
+    }
+    update() {
+      if (mouse.x !== null) {
+        const dx = mouse.x - this.x, dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          this.vx -= dx / dist * 0.05;
+          this.vy -= dy / dist * 0.05;
+        }
+      }
+      this.x += this.vx; this.y += this.vy;
+      this.vx *= 0.99; this.vy *= 0.99;
+      this.life -= this.decay;
+      if (this.life <= 0 || this.y < -10) this.reset(false);
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.color + (this.alpha * this.life) + ')';
+      ctx.fill();
+    }
+  }
+
+  // Network lines
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i+1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          const alpha = (1 - d/100) * 0.12;
+          ctx.strokeStyle = `rgba(37,117,252,${alpha * 2})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    drawLines();
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // hero自体でマウスを拾う（canvasはpointer-events:noneなので）
+  hero.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  });
+  hero.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+})();
 
 // ── NUMBER COUNTER ANIMATION ──
 function animateCount(el, from, to, dur) {
