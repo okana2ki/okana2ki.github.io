@@ -548,17 +548,17 @@
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-num" id="count-sessions">3</span>
-        <div class="stat-label">既開催数（2026年度）</div>
-      </div>
-      <div class="stat">
-        <span class="stat-num">2</span>
-        <div class="stat-label">1回あたりの開催数</div>
+        <span class="stat-num" id="count-sessions">15</span>
+        <div class="stat-label">開催予定数（各学期）</div>
       </div>
       <div class="stat">
         <span class="stat-num">40<small style="font-size:1.2rem">分</small></span>
         <div class="stat-label">講習時間（14:00回）</div>
       </div>
+      <div class="stat">
+        <span class="stat-num">30<small style="font-size:1.2rem">分</small></span>
+        <div class="stat-label">講習時間（16:30回）</div>
+      </div>      
       <div class="stat">
         <span class="stat-num">¥0</span>
         <div class="stat-label">参加費</div>
@@ -1033,7 +1033,7 @@ function animateCount(el, from, to, dur) {
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      animateCount(document.getElementById('count-sessions'), 0, 3, 800);
+      animateCount(document.getElementById('count-sessions'), 0, 15, 2000);
       statsObserver.disconnect();
     }
   });
